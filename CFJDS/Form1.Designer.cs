@@ -32,9 +32,12 @@
             this.cbbTowns = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.btnImport = new System.Windows.Forms.Button();
-            this.cbbCode = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenerate
@@ -49,7 +52,7 @@
             // 
             // tbxDataSource
             // 
-            this.tbxDataSource.Location = new System.Drawing.Point(12, 12);
+            this.tbxDataSource.Location = new System.Drawing.Point(12, 27);
             this.tbxDataSource.Name = "tbxDataSource";
             this.tbxDataSource.Size = new System.Drawing.Size(471, 21);
             this.tbxDataSource.TabIndex = 1;
@@ -112,7 +115,7 @@
             "章旦乡",
             "祯埠乡",
             "祯旺乡"});
-            this.cbbTowns.Location = new System.Drawing.Point(77, 39);
+            this.cbbTowns.Location = new System.Drawing.Point(77, 59);
             this.cbbTowns.Name = "cbbTowns";
             this.cbbTowns.Size = new System.Drawing.Size(121, 20);
             this.cbbTowns.TabIndex = 4;
@@ -120,7 +123,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 39);
+            this.label1.Location = new System.Drawing.Point(12, 62);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(59, 12);
             this.label1.TabIndex = 5;
@@ -128,7 +131,7 @@
             // 
             // btnImport
             // 
-            this.btnImport.Location = new System.Drawing.Point(204, 39);
+            this.btnImport.Location = new System.Drawing.Point(204, 57);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(75, 23);
             this.btnImport.TabIndex = 6;
@@ -136,38 +139,43 @@
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
-            // cbbCode
+            // menuStrip1
             // 
-            this.cbbCode.FormattingEnabled = true;
-            this.cbbCode.Items.AddRange(new object[] {
-            "鹤城所",
-            "温溪所",
-            "山口所",
-            "船寮所",
-            "东源所",
-            "腊口所",
-            "北山所"});
-            this.cbbCode.Location = new System.Drawing.Point(77, 174);
-            this.cbbCode.Name = "cbbCode";
-            this.cbbCode.Size = new System.Drawing.Size(121, 20);
-            this.cbbCode.TabIndex = 7;
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.文件ToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(524, 24);
+            this.menuStrip1.TabIndex = 7;
+            this.menuStrip1.Text = "menuStrip1";
             // 
-            // label2
+            // 文件ToolStripMenuItem
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(12, 181);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(53, 12);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "国土所：";
+            this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.打开ToolStripMenuItem,
+            this.退出ToolStripMenuItem});
+            this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
+            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.文件ToolStripMenuItem.Text = "文件";
+            // 
+            // 打开ToolStripMenuItem
+            // 
+            this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.打开ToolStripMenuItem.Text = "打开";
+            this.打开ToolStripMenuItem.Click += new System.EventHandler(this.tbxDataSource_DoubleClick);
+            // 
+            // 退出ToolStripMenuItem
+            // 
+            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.退出ToolStripMenuItem.Text = "退出";
             // 
             // BiultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(524, 235);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.cbbCode);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbbTowns);
@@ -175,12 +183,18 @@
             this.Controls.Add(this.prbSpeed);
             this.Controls.Add(this.tbxDataSource);
             this.Controls.Add(this.btnGenerate);
+            this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "BiultForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "法律文书处理";
+            this.Load += new System.EventHandler(this.BiultForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -196,8 +210,10 @@
         private System.Windows.Forms.ComboBox cbbTowns;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.ComboBox cbbCode;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
     }
 }
 

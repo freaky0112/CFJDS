@@ -202,7 +202,7 @@ namespace CFJDS {
                 _birthDate=new DateTime[_cardIDs.Length];
                 if (_cardIDs != null) {
                     for(int i=0;i<_cardIDs.Length;i++){
-                        string id=_cardIDs[i];
+                        string id=_cardIDs[i].Replace("\n","").Trim();
                         if (!string.IsNullOrEmpty(id)) {
                             DateTime birthDate = DateTime.Parse(id.Substring(6, 8).Insert(6, "-").Insert(4, "-"));
                             _birthDate.SetValue(birthDate,i);
@@ -225,8 +225,8 @@ namespace CFJDS {
             get {
                 _sex = new string[_cardIDs.Length];
                 if (_cardIDs!=null) {
-                    for (int i = 0; i < _cardIDs.Length; i++) {                        
-                        string id = _cardIDs[i];
+                    for (int i = 0; i < _cardIDs.Length; i++) {
+                        string id = _cardIDs[i].Replace("\n", "").Trim();
                         if (!string.IsNullOrEmpty(id)) {
                             string sex = "";
                             if (Int32.Parse(id.Substring(16, 1)) % 2 == 0) {

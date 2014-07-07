@@ -79,13 +79,15 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="SQLite.Designer">
-      <HintPath>C:\Program Files (x86)\System.Data.SQLite\2005\bin\SQLite.Designer.dll</HintPath>
+    <Reference Include="SQLite.Designer, Version=1.0.93.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Freaky\Downloads\sqlite-netFx20-binary-bundle-Win32-2005-1.0.93.0\SQLite.Designer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.SQLite">
-      <HintPath>C:\Program Files (x86)\System.Data.SQLite\2005\bin\System.Data.SQLite.dll</HintPath>
+    <Reference Include="System.Data.SQLite, Version=1.0.93.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\Users\Freaky\Downloads\sqlite-netFx20-binary-bundle-Win32-2005-1.0.93.0\System.Data.SQLite.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Deployment" />
@@ -113,10 +115,19 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormChoose.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormChoose.Designer.cs">
+      <DependentUpon>FormChoose.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormChoose.resx">
+      <DependentUpon>FormChoose.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

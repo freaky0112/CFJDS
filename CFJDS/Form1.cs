@@ -16,22 +16,24 @@ namespace CFJDS {
     public partial class BiultForm : Form {
         public BiultForm() {
             CheckForIllegalCrossThreadCalls = false;
-
+            
             InitializeComponent();
             cbbTowns.SelectedIndex = 0;
-            cbbCode.SelectedIndex = 0;
-
+            FormChoose formChoose = new FormChoose();
+            formChoose.ShowDialog();
+            this.Text += " - " + formChoose.cbbCode.SelectedItem;
         }
 
         string strConnection = System.IO.Directory.GetCurrentDirectory() + @"\CFSJ.db";//数据目录
-
+        public int selectCode = new int();
+        public string selectGTS = "";
 
 
         BiultIndex bcindex = new BiultIndex();
         BiultCFGZS bcfgzs = new BiultCFGZS();
         BiultCFJDS bcfjds = new BiultCFJDS();
         BiultCLJD bccljd = new BiultCLJD();
-        string dataSouce = "";
+        string[] dataSouce;
         ArrayList dataList = new ArrayList();
         DataCFSJ data = new DataCFSJ();
 
@@ -51,17 +53,40 @@ namespace CFJDS {
         }
 
         private void generate() {
-            string code = "ABCDEFG";
+            string code ="";
+            switch ((this.Text.Split(' '))[2]){
+                case "鹤城所":
+                    code = "A";
+                    break;
+                case "温溪所":
+                    code = "B";
+                    break;
+                case "山口所":
+                    code = "C";
+                    break;
+                case "船寮所":
+                    code = "D";
+                    break;
+                case "东源所":
+                    code = "E";
+                    break;
+                case "腊口所":
+                    code = "F";
+                    break;
+                case "北山所":
+                    code = "G";
+                    break;
+            }
             
             readData();
             int length = dataList.Count;
             double count = 0;
             Thread t1 = new Thread(() => {
                 BiultReportForm brf = new BiultReportForm();
-                lock (lblSpeed) ;
+                //lock (lblSpeed) ;
                 for (int i = 0; i < dataList.Count; i++) {
                     data = (DataCFSJ)dataList[i];
-                    data.Code = code[cbbCode.SelectedIndex].ToString();
+                    data.Code = code;
                     if (!Directory.Exists(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town)){//判断文件目录是否已经存在
                         Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town);//创建文件夹
                     }
@@ -139,39 +164,42 @@ namespace CFJDS {
         }
 
         private void dataFill() {
+            try {
+                foreach (DataRow dr in dataSet.Tables[0].Rows) {
+                    if (IsNumber(dr[0].ToString())) {
+                        data = new DataCFSJ();//初始化数据
+                        //data.ID = Int32.Parse(dr[0].ToString());
+                        data.Name = dr[1].ToString();//户主姓名
+                        data.CardID = dr[2].ToString().Replace("\n", ""); ;//身份证
+                        data.Location = dr[4].ToString();//座落地点
+                        data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
+                        data.Area = double.Parse(dr[6].ToString());//实地占地面积
+                        data.LegalArea = double.Parse(dr[7].ToString());//合法面积
+                        data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                        data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
+                        data.Price = double.Parse(dr[10].ToString());//处罚金额
+                        data.Layer = double.Parse(dr[11].ToString());//建设层数
+                        data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                        data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
+                        data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
 
-            foreach (DataRow dr in dataSet.Tables[0].Rows) {
-                if (IsNumber(dr[0].ToString())) {
-                    data = new DataCFSJ();//初始化数据
-                    //data.ID = Int32.Parse(dr[0].ToString());
-                    data.Name = dr[1].ToString();//户主姓名
-                    data.CardID = dr[2].ToString(); ;//身份证
-                    data.Location = dr[4].ToString();//座落地点
-                    data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
-                    data.Area = double.Parse(dr[6].ToString());//实地占地面积
-                    data.LegalArea = double.Parse(dr[7].ToString());//合法面积
-                    data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
-                    data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
-                    data.Price = double.Parse(dr[10].ToString());//处罚金额
-                    data.Layer = double.Parse(dr[11].ToString());//建设层数
-                    data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
-                    data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
-                    data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
-                    
-                    data.CardIDs = data.CardID.Split('、');
-                    
-                    data.Guid = System.Guid.NewGuid().ToString();//GUID生成
-                    if (data.IsnotConfiscate) {
-                        data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
-                        data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
-                        data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
-                        data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+                        data.CardIDs = data.CardID.Split('、');
+
+                        data.Guid = System.Guid.NewGuid().ToString();//GUID生成
+                        if (data.IsnotConfiscate) {
+                            data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
+                            data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
+                            data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
+                            data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+                        }
+                        if (data.IllegaArea / data.Names.Length > 1) {//判断是否要处罚，平均每户小于1平方免于处罚
+                            dataList.Add(data);
+                        }
                     }
-                    if (data.IllegaArea / data.Names.Length > 1) {//判断是否要处罚，平均每户小于1平方免于处罚
-                        dataList.Add(data);
-                    }
+
                 }
-
+            } catch (Exception ex) {
+                throw ex;
             }
         }
 
@@ -195,14 +223,21 @@ namespace CFJDS {
         private void tbxDataSource_DoubleClick(object sender, EventArgs e) {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.InitialDirectory = "c://";
+            openFileDialog.Multiselect = true;
             openFileDialog.Filter = "xls文件|*.xls|xlsx文件|*.xlsx|所有文件|*.*";
             openFileDialog.RestoreDirectory = true;
             openFileDialog.FilterIndex = 1;
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
-                dataSouce = openFileDialog.FileName;
-                tbxDataSource.Text = dataSouce;
+                dataSouce = openFileDialog.FileNames;
+                StringBuilder source = new StringBuilder();
+                foreach(string name in dataSouce){
+                    source.Append(name);
+                    source.Append(";");
+                }
+                tbxDataSource.Text = source.ToString();
             }
         }
+        
 
         private DataSet importExcelToDataSet(string souce) {
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + souce + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
@@ -223,9 +258,13 @@ namespace CFJDS {
             if (string.IsNullOrEmpty(tbxDataSource.Text)) {
                 MessageBox.Show("请选择数据来源");
             } else {
-                dataSet = importExcelToDataSet(dataSouce);//导入数据
-                dataFill();
+                foreach (string source in dataSouce) {
+                    dataSet = importExcelToDataSet(source);//导入数据
+
+                    dataFill();
+                }
                 insertData();
+                
                 MessageBox.Show("数据导入完毕");
             }
         }
@@ -339,6 +378,11 @@ namespace CFJDS {
             };
 
 
+        }
+
+        private void BiultForm_Load(object sender, EventArgs e) {
+           
+            
         }
     }
 }
