@@ -1,0 +1,9 @@
+E:\workspace\CFJDS\CFJDS\bin\Debug\CFJDS.exe
+E:\workspace\CFJDS\CFJDS\bin\Debug\CFJDS.pdb
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.csprojResolveAssemblyReference.cache
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.csproj.ResolveComReference.cache
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.Form1.resources
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.Properties.Resources.resources
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.csproj.GenerateResource.Cache
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.exe
+E:\workspace\CFJDS\CFJDS\obj\Debug\CFJDS.pdb

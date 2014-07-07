@@ -1,0 +1,17 @@
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.csproj.ResolveComReference.cache
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFJDS.exe
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFJDS.pdb
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.Properties.Resources.resources
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.csproj.GenerateResource.Cache
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.exe
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.pdb
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.csprojResolveAssemblyReference.cache
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFJDS.exe.config
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\Office.dll
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\Microsoft.Office.Interop.Word.dll
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\SQLite.Designer.dll
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\SQLite.Designer.pdb
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\System.Data.SQLite.dll
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\System.Data.SQLite.pdb
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\test.db
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.BiultForm.resources
