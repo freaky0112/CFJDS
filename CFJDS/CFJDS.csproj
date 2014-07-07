@@ -130,6 +130,9 @@
     </Compile>
     <None Include="app.config" />
     <None Include="CFJDS_TemporaryKey.pfx" />
+    <None Include="CFSJ.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="CFSJDataSet.xsc">
       <DependentUpon>CFSJDataSet.xsd</DependentUpon>
     </None>
@@ -150,9 +153,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="test.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">

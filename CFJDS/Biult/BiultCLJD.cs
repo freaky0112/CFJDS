@@ -57,7 +57,7 @@ namespace CFJDS {
             addLine(brf);
             pFontSize = 15;
             pFontBold = 0;//设置细体
-            pText = "青土资没作字〔2014〕第" + data.Code + String.Format("{0:0000}", data.ConfiscateNo) + "号";
+            pText = "青土资没作字〔2014〕" + data.Code + String.Format("{0:0000}", data.ConfiscateID) + "号";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             addLine(brf);
         }
@@ -77,22 +77,29 @@ namespace CFJDS {
             pFontSize = 15;
             ptextAlignment = 0;
             addLine(brf);
-            pText = "    我局行政处罚决定书（青土资罚〔2014〕第";
-            pText += data.Code + String.Format("{0:0000}", data.ConfiscateNo);
-            pText += "号）依法没收你在青田县";
+            pText = "    我局行政处罚决定书（青土资罚〔2014〕";
+            pText += data.Code + String.Format("{0:0000}", data.ConfiscateID);
+            pText += "号）依法没收你户";
+            pText += data.BuildDate.ToString().Substring(0, 4);
+            pText+="在青田县";
             pText += data.Town;
             pText += data.Location;
             pText += "    非法建造的房屋。";
             addLine(brf);
-            pText = "    违法建筑计占地面积";
-            pText += data.Area;
-            pText += "没收建筑面积";
+            pText = "    没收建筑面积计";
             pText += data.ConfiscateArea;
+            pText += "平方米（占地";
+            pText += data.ConfiscateFloorArea;
             pText += "平方米，依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，没收金额为";
             pText += data.ConfiscateAreaUnit;
-            pText += "元/平方米，折计人民币";
+            pText += "元/平方米，共计人民币";
             pText += ecanNum.CmycurD(data.ConfiscateAreaPrice.ToString()) + "（￥" + Math.Round(data.ConfiscateAreaPrice, 2) + ")。现根据你户申请，经研究决定，由你户购回。";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
+            addLine(brf);
+            pText = "现责令你户办理有关手续，否则将另行处理。";
+            addLine(brf);
+            pText = "";
+            addLine(brf);
             addLine(brf);
             pText = "青田县国土资源局        ";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;

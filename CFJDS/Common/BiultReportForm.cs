@@ -73,8 +73,8 @@ namespace CFJDS {
         /// <summary>
         /// 设置行间距
         /// </summary>
-        public void SetLineSpacing(float spacing) {
-            this._wordApplication.Application.Selection.ParagraphFormat.LineSpacingRule=Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpaceExactly;
+        public void SetLineSpacing(float spacing,Microsoft.Office.Interop.Word.WdLineSpacing lineSpacing) {
+            this._wordApplication.Application.Selection.ParagraphFormat.LineSpacingRule=lineSpacing;
             this._wordApplication.Application.Selection.ParagraphFormat.LineSpacing = spacing;
         }
         /// <summary>

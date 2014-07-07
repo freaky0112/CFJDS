@@ -4,6 +4,10 @@ using System.Text;
 
 namespace CFJDS {
     class DataCFSJ {
+
+        public DataCFSJ() { 
+        }
+
         /// <summary>
         /// 姓名
         /// </summary>
@@ -16,14 +20,23 @@ namespace CFJDS {
         /// <summary>
         /// 日期
         /// </summary>
-        private int _date;
+        private int _biuldDate;
 
-        public int Date {
-            get { return _date; }
-            set { _date = value; }
+        public int BuildDate {
+            get { return _biuldDate; }
+            set { _biuldDate = value; }
         }
         /// <summary>
-        /// 地点
+        /// 住址
+        /// </summary>
+        private string _address;
+
+        public string Address {
+            get { return _address; }
+            set { _address = value; }
+        }
+        /// <summary>
+        /// 土地座落
         /// </summary>
         private string _location;
 
@@ -32,7 +45,16 @@ namespace CFJDS {
             set { _location = value; }
         }
         /// <summary>
-        /// 违法面积
+        /// 户籍人数
+        /// </summary>
+        private string _account;
+
+        public string Account {
+            get { return _account; }
+            set { _account = value; }
+        }
+        /// <summary>
+        /// 占地面积
         /// </summary>
         private double _area;
 
@@ -41,13 +63,32 @@ namespace CFJDS {
             set { _area = value; }
         }
         /// <summary>
-        /// 单价
+        /// 合法面积
         /// </summary>
-        private int _unit;
+        private double _legalArea;
 
-        public int Unit {
-            get { return _unit; }
-            set { _unit = value; }
+        public double LegalArea {
+            get { return _legalArea; }
+            set { _legalArea = value; }
+        }
+
+        /// <summary>
+        /// 违法面积
+        /// </summary>
+        private double _illegalArea;
+
+        public double IllegaArea {
+            get { return _illegalArea; }
+            set { _illegalArea = value; }
+        }
+        /// <summary>
+        /// 违法单价
+        /// </summary>
+        private int _illegaUnit;
+
+        public int IllegaUnit {
+            get { return _illegaUnit; }
+            set { _illegaUnit = value; }
         }
 
         /// <summary>
@@ -69,6 +110,18 @@ namespace CFJDS {
             set { _isnotConfiscate = value; }
         }
         /// <summary>
+        /// 没收占地面积
+        /// </summary>
+        private double _confiscateFloorArea;
+
+        public double ConfiscateFloorArea {
+            get {
+                //_confiscateFloorArea = ConfiscateArea / Layer;//暂时
+                return _confiscateFloorArea; }
+            set { _confiscateFloorArea = value; }
+        }
+
+        /// <summary>
         /// 没收面积
         /// </summary>
         private double _confiscateArea;
@@ -87,11 +140,11 @@ namespace CFJDS {
             set { _confiscateAreaUnit = value; }
         }
         //编号
-        private int _no;
+        private int _id;
 
-        public int No {
-            get { return _no; }
-            set { _no = value; }
+        public int ID {
+            get { return _id; }
+            set { _id = value; }
         }
         /// <summary>
         /// 没收价格
@@ -118,21 +171,21 @@ namespace CFJDS {
         /// <summary>
         /// 身份证
         /// </summary>
-        private string _ID;
+        private string _cardID;
 
-        public string ID {
-            get { return _ID; }
-            set { _ID = value; }
+        public string CardID {
+            get { return _cardID; }
+            set { _cardID = value; }
         }
 
         /// <summary>
         /// 身份证号
         /// </summary>
-        private string[] _IDs;
+        private string[] _cardIDs;
 
-        public string[] IDs {
-            get { return ID.Split('、'); }
-            set { _IDs = value; }
+        public string[] CardIDs {
+            get { return CardID.Split('、'); }
+            set { _cardIDs = value; }
         }
         
 
@@ -146,10 +199,10 @@ namespace CFJDS {
 
         public DateTime[] BirthDate {
             get {
-                _birthDate=new DateTime[_IDs.Length];
-                if (_IDs != null) {
-                    for(int i=0;i<_IDs.Length;i++){
-                        string id=_IDs[i];
+                _birthDate=new DateTime[_cardIDs.Length];
+                if (_cardIDs != null) {
+                    for(int i=0;i<_cardIDs.Length;i++){
+                        string id=_cardIDs[i];
                         if (!string.IsNullOrEmpty(id)) {
                             DateTime birthDate = DateTime.Parse(id.Substring(6, 8).Insert(6, "-").Insert(4, "-"));
                             _birthDate.SetValue(birthDate,i);
@@ -170,10 +223,10 @@ namespace CFJDS {
 
         public string[] Sex {
             get {
-                _sex = new string[_IDs.Length];
-                if (_IDs!=null) {
-                    for (int i = 0; i < _IDs.Length; i++) {                        
-                        string id = _IDs[i];
+                _sex = new string[_cardIDs.Length];
+                if (_cardIDs!=null) {
+                    for (int i = 0; i < _cardIDs.Length; i++) {                        
+                        string id = _cardIDs[i];
                         if (!string.IsNullOrEmpty(id)) {
                             string sex = "";
                             if (Int32.Parse(id.Substring(16, 1)) % 2 == 0) {
@@ -195,7 +248,9 @@ namespace CFJDS {
                
             }
         }
-
+        /// <summary>
+        /// 所在乡镇
+        /// </summary>
         private string _town;
 
         public string Town {
@@ -203,26 +258,40 @@ namespace CFJDS {
             set { _town = value; }
         }
 
-
+        /// <summary>
+        /// GUID
+        /// </summary>
         private string _guid;
 
         public string Guid {
             get { return _guid; }
             set { _guid = value; }
         }
-
+        /// <summary>
+        /// 编号编码
+        /// </summary>
         private string _code;
 
         public string Code {
             get { return _code; }
             set { _code = value; }
         }
+        /// <summary>
+        /// 没收编号
+        /// </summary>
+        private int _confiscateID;
 
-        private int _confiscateNo;
-
-        public int ConfiscateNo {
-            get { return _confiscateNo; }
-            set { _confiscateNo = value; }
+        public int ConfiscateID {
+            get { return _confiscateID; }
+            set { _confiscateID = value; }
         }
+        //实际层数
+        private double _layer;
+
+        public double Layer {
+            get { return _layer; }
+            set { _layer = value; }
+        }
+
     }
 }

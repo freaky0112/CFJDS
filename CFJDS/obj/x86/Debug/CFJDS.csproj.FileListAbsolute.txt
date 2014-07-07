@@ -13,5 +13,9 @@ E:\workspace\CFJDS\CFJDS\bin\x86\Debug\SQLite.Designer.dll
 E:\workspace\CFJDS\CFJDS\bin\x86\Debug\SQLite.Designer.pdb
 E:\workspace\CFJDS\CFJDS\bin\x86\Debug\System.Data.SQLite.dll
 E:\workspace\CFJDS\CFJDS\bin\x86\Debug\System.Data.SQLite.pdb
-E:\workspace\CFJDS\CFJDS\bin\x86\Debug\test.db
 E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.BiultForm.resources
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFSJ.db
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFJDS.exe.manifest
+E:\workspace\CFJDS\CFJDS\bin\x86\Debug\CFJDS.application
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.exe.manifest
+E:\workspace\CFJDS\CFJDS\obj\x86\Debug\CFJDS.application
