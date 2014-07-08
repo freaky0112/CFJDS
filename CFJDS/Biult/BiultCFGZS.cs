@@ -103,17 +103,20 @@ namespace CFJDS {
             pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等有关法律法规有关规定。本局依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对你的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
-            pText = "    ";
+            pText = "";
             addTxt(brf);
             //如果没收
-            if (data.IsnotConfiscate) {
-                pText = "1. 没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
+            if (data.ConfiscateArea > 0) {
+                pText = "    1.没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
                 addLine(brf);
-                pText = "    2.  ";
+                pText = "    2.对你户非法占用土地" + data.IllegaArea + "平方米的行为处以罚款，";
+                addTxt(brf);
+            } else {
+                pText = "    对你户非法占用土地的行为处以罚款，";
                 addTxt(brf);
             }
 
-            pText = "对你非法占用土地"+data.Area+"的行为处以罚款，罚款额为非法占用其他土地每平方米";
+            pText = "罚款额为非法占用其他土地每平方米";
             pText += data.IllegaUnit.ToString();
             pText += "元，合计人民币" + ecanNum.CmycurD(data.Price.ToString()) + "（￥" + Math.Round(data.Price, 2) + ")。";
             addLine(brf);
@@ -129,12 +132,11 @@ namespace CFJDS {
             } else {
                 pText += "的权利。";
             }
+            pText = "";
+            addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
-            addLine(brf);
-            pText = "青田县国土资源局        ";
-            ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
-            addLine(brf);
-            pText = "2014年   月   日        ";
+            //ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
+            pText = "                              2014年   月   日";
             addLine(brf);
         }
     }

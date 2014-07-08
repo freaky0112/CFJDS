@@ -47,7 +47,7 @@ namespace CFJDS {
         /// <param name="brf"></param>    
         private void addTitle(BiultReportForm brf,DataCFSJ data) {
             pText = "青田县国土资源局";
-            pFontSize = 18;
+            pFontSize = 24;
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
             pFontBold = 1;//设置粗体
             addLine(brf);
@@ -77,7 +77,7 @@ namespace CFJDS {
             brf.SetLineSpacing(21f,Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
             for (int i = 0; i < data.Names.Length; i++) {
                 string name = data.Names[i];
-                pText = "    被处罚人：" + name + " " + "，";
+                pText = "    被处罚人：" + name + "，";
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
@@ -153,27 +153,30 @@ namespace CFJDS {
             pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。本局依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对被处罚人的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
-            pText = "    ";
+            pText = "";
             addTxt(brf);
             //如果没收
-            if (data.IsnotConfiscate) {
-                pText = "1. 没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
+            if (data.ConfiscateArea > 0) {
+                pText = "    1.没收被处罚人超出审批限额占用的" + data.ConfiscateFloorArea.ToString() + "平方米的土地上的建筑物，建筑面积为" + data.ConfiscateArea.ToString() + "平方米。";
                 addLine(brf);
-                pText = "    2.  ";
+                pText = "    2.对被处罚人非法占用" + data.IllegaArea + "平方米土地的行为处以罚款，";
+                addTxt(brf);
+            } else {
+                pText = "    对被处罚人非法占用土地的行为处以罚款，";
                 addTxt(brf);
             }
 
-            pText = "对你非法占用土地的行为处以罚款，罚款额为非法占用其他土地每平方米";
+            pText = "罚款额为非法占用其他土地每平方米";
             pText += data.IllegaUnit.ToString();
             pText += "元，合计人民币" + ecanNum.CmycurD(data.Price.ToString()) + "（￥" + Math.Round(data.Price, 2) + ")。";
             addLine(brf);
             pText = "    如不服本处罚决定的，可在接到本处罚决定书之日起六十日内向丽水巿国土资源局或青田县人民政府提出行政复议申请，或者在三个月内向人民法院提起行政诉讼，逾期既不申请复议又不提起诉讼，又不履行本处罚决定的，本局将申请人民法院强制执行，费用由被处罚人支付。";
             //处罚总金额大于5W有听证            
             addLine(brf);
-            pText = "青田县国土资源局        ";
-            ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
+            pText = "";
             addLine(brf);
-            pText = "2014年   月   日        ";
+            //ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
+            pText = "                              2014年   月   日";
             addLine(brf);
         }
     }

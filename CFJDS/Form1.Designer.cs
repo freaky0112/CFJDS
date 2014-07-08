@@ -35,7 +35,11 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmSaveData = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbxID = new System.Windows.Forms.TextBox();
+            this.tsmQuit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmRevertData = new System.Windows.Forms.ToolStripMenuItem();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -153,7 +157,9 @@
             // 
             this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开ToolStripMenuItem,
-            this.退出ToolStripMenuItem});
+            this.tsmSaveData,
+            this.tsmRevertData,
+            this.tsmQuit});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
             this.文件ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.文件ToolStripMenuItem.Text = "文件";
@@ -165,17 +171,52 @@
             this.打开ToolStripMenuItem.Text = "打开";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.tbxDataSource_DoubleClick);
             // 
-            // 退出ToolStripMenuItem
+            // tsmSaveData
             // 
-            this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.退出ToolStripMenuItem.Text = "退出";
+            this.tsmSaveData.Name = "tsmSaveData";
+            this.tsmSaveData.Size = new System.Drawing.Size(152, 22);
+            this.tsmSaveData.Text = "保存导入数据";
+            this.tsmSaveData.Click += new System.EventHandler(this.tsmSaveData_Click);
+            // 
+            // tbxID
+            // 
+            this.tbxID.Location = new System.Drawing.Point(290, 174);
+            this.tbxID.Name = "tbxID";
+            this.tbxID.Size = new System.Drawing.Size(100, 21);
+            this.tbxID.TabIndex = 8;
+            this.tbxID.TextChanged += new System.EventHandler(this.tbxID_TextChanged);
+            this.tbxID.MouseEnter += new System.EventHandler(this.tbxID_MouseEnter);
+            // 
+            // tsmQuit
+            // 
+            this.tsmQuit.Name = "tsmQuit";
+            this.tsmQuit.Size = new System.Drawing.Size(152, 22);
+            this.tsmQuit.Text = "退出";
+            this.tsmQuit.Click += new System.EventHandler(this.tsmQuit_Click);
+            // 
+            // tsmRevertData
+            // 
+            this.tsmRevertData.Name = "tsmRevertData";
+            this.tsmRevertData.Size = new System.Drawing.Size(152, 22);
+            this.tsmRevertData.Text = "还原数据";
+            this.tsmRevertData.Click += new System.EventHandler(this.tsmRevertData_Click);
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(238, 177);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "编号：";
             // 
             // BiultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(524, 235);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbxID);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbbTowns);
@@ -213,7 +254,11 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 文件ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 打开ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 退出ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem tsmSaveData;
+        private System.Windows.Forms.TextBox tbxID;
+        private System.Windows.Forms.ToolStripMenuItem tsmQuit;
+        private System.Windows.Forms.ToolStripMenuItem tsmRevertData;
+        private System.Windows.Forms.Label label2;
     }
 }
 

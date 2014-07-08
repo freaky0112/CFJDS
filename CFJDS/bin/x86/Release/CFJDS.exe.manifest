@@ -72,14 +72,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CFJDS.exe" size="49152">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CFJDS.exe" size="51200">
       <assemblyIdentity name="CFJDS" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>31kwjv4mX0bUQamdarVcBwhGpuQ=</dsig:DigestValue>
+        <dsig:DigestValue>CpU2infrSxXrDJuC789GFjMoH54=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

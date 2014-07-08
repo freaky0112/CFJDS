@@ -11,6 +11,7 @@ using System.Data.OleDb;
 using System.Threading;
 using System.Data.SQLite;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CFJDS {
     public partial class BiultForm : Form {
@@ -37,6 +38,9 @@ namespace CFJDS {
         ArrayList dataList = new ArrayList();
         DataCFSJ data = new DataCFSJ();
 
+        string newData = Directory.GetCurrentDirectory() + @"\CFSJ.db";//当前数据库
+        string oldData = Directory.GetCurrentDirectory() + @"\backup\CFSJ.db";//备份数据库
+
         //string pText;// 文本信息   
         //int pFontSize;//字体大小  
         //string pFontName = "宋体";
@@ -48,13 +52,16 @@ namespace CFJDS {
 
             //dataSet = importExcelToDataSet(dataSouce);//导入数据
             //dataFill();
-            generate();
-
+            try {
+                string ids = tbxID.Text;
+                generate(ids);
+                
+            } catch (Exception ex) { throw ex; }
         }
 
-        private void generate() {
-            string code ="";
-            switch ((this.Text.Split(' '))[2]){
+        private void generate(string ids) {
+            string code = "";
+            switch ((this.Text.Split(' '))[2]) {
                 case "鹤城所":
                     code = "A";
                     break;
@@ -77,93 +84,47 @@ namespace CFJDS {
                     code = "G";
                     break;
             }
-            
-            readData();
-            int length = dataList.Count;
-            double count = 0;
-            Thread t1 = new Thread(() => {
-                BiultReportForm brf = new BiultReportForm();
-                //lock (lblSpeed) ;
-                for (int i = 0; i < dataList.Count; i++) {
-                    data = (DataCFSJ)dataList[i];
-                    data.Code = code;
-                    if (!Directory.Exists(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town)){//判断文件目录是否已经存在
-                        Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town);//创建文件夹
+            try {
+                Thread t1 = new Thread(() => {
+                    foreach (string id in ids.Split('，')) {
+                        readData(id);
+                        int length = dataList.Count;
+                        double count = 0;
+
+                        BiultReportForm brf = new BiultReportForm();
+                        //lock (lblSpeed) ;
+                        for (int i = 0; i < dataList.Count; i++) {
+                            data = (DataCFSJ)dataList[i];
+                            data.Code = code;
+                            if (!Directory.Exists(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town)) {//判断文件目录是否已经存在
+                                Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town);//创建文件夹
+                            }
+                            string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
+                            brf.CreateAWord();//创建文档
+                            bcindex.addIndex(brf, data);//创建目录
+                            bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                            bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                            bcfjds.addCFJDS(brf, data);//创建处罚决定书
+                            bcfjds.addCFJDS(brf, data);//创建处罚决定书
+                            if (!data.ConfiscateID.ToString().Equals("0")) {
+                                bccljd.addCLJD(brf, data);//创建处理决定
+                                bccljd.addCLJD(brf, data);//创建处理决定
+                            }
+                            brf.SaveWord(filePath);//保存
+                            count++;
+                            lblSpeed.Text = Math.Round(count * 100 / length, 2) + "%";
+                            prbSpeed.Value = (int)(count * 100 / length);
+                        }
+                        lblSpeed.Text = "100%";
+
                     }
-                    string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
-                    brf.CreateAWord();//创建文档
-                    bcindex.addIndex(brf, data);//创建目录
-                    bcfgzs.addCFGZS(brf, data);//创建处罚告知书
-                    bcfgzs.addCFGZS(brf, data);//创建处罚告知书
-                    bcfjds.addCFJDS(brf, data);//创建处罚决定书
-                    bcfjds.addCFJDS(brf, data);//创建处罚决定书
-                    if (!data.ConfiscateID.ToString().Equals("0")) {
-                        bccljd.addCLJD(brf, data);//创建处理决定
-                        bccljd.addCLJD(brf, data);//创建处理决定
-                    }
-                    brf.SaveWord(filePath);//保存
-                    count++;
-                    lblSpeed.Text = Math.Round(count * 100 / length, 2) + "%";
-                    prbSpeed.Value = (int)(count * 100 / length);
-                }
-                lblSpeed.Text = "100%";
-                System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory());
-
-            });
-            t1.Start();
-
-
-            /*
-            Thread t2 = new Thread(() => {
-                BiultReportForm brf = new BiultReportForm();
-                lock (lblSpeed) ;
-                for (int i = dataList.Count / 4; i < dataList.Count * 2 / 4; i++) {
-                    data = (DataCFSJ)dataList[i];
-
-                    string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.No + data.Name + @".doc";
-                    brf.CreateAWord();//创建文档
-                    bcf.addCFGZS(brf, data);//创建处罚告知书
-                    brf.SaveWord(filePath);//保存
-                    count++;
-                    lblSpeed.Text = ((count * 100 / length).ToString() + "000").Substring(0, 4) + "%";
-                    prbSpeed.Value = (int)(count * 100 / length);
-                }
-            });
-            t2.Start();
-
-            Thread t3 = new Thread(() => {
-                BiultReportForm brf = new BiultReportForm();
-                lock (lblSpeed) ;
-                for (int i = dataList.Count * 2 / 4; i < dataList.Count * 3 / 4; i++) {
-                    data = (DataCFSJ)dataList[i];
-
-                    string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.No + data.Name + @".doc";
-                    brf.CreateAWord();//创建文档
-                    bcf.addCFGZS(brf, data);//创建处罚告知书
-                    brf.SaveWord(filePath);//保存
-                    count++;
-                    lblSpeed.Text = ((count * 100 / length).ToString() + "000").Substring(0, 4) + "%";
-                    prbSpeed.Value = (int)(count * 100 / length);
-                }
-            });
-            t3.Start();
-
-            Thread t4 = new Thread(() => {
-                BiultReportForm brf = new BiultReportForm();
-                lock (lblSpeed) ;
-                for (int i = dataList.Count * 3 / 4; i < dataList.Count; i++) {
-                    data = (DataCFSJ)dataList[i];
-
-                    string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.No + data.Name + @".doc";
-                    brf.CreateAWord();//创建文档
-                    bcf.addCFGZS(brf, data);//创建处罚告知书
-                    brf.SaveWord(filePath);//保存
-                    count++;
-                    lblSpeed.Text = ((count * 100 / length).ToString() + "000").Substring(0, 4) + "%";
-                    prbSpeed.Value = (int)(count * 100 / length);
-                }
-            });
-            t4.Start();*/
+                    System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory());
+                });
+                t1.Start();
+                
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
         private void dataFill() {
@@ -175,7 +136,7 @@ namespace CFJDS {
                             data = new DataCFSJ();//初始化数据
                             //data.ID = Int32.Parse(dr[0].ToString());
                             data.Name = dr[1].ToString();//户主姓名
-                            data.CardID = dr[2].ToString().Replace("\n", "");//身份证
+                            data.CardID = dr[2].ToString().Replace("\n", "").Trim();//身份证
                             data.Location = dr[4].ToString();//座落地点
                             data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
                             data.Area = double.Parse(dr[6].ToString());//实地占地面积
@@ -276,14 +237,16 @@ namespace CFJDS {
             if (string.IsNullOrEmpty(tbxDataSource.Text)) {
                 MessageBox.Show("请选择数据来源");
             } else {
-                foreach (string source in dataSouce) {
-                    dataSet = importExcelToDataSet(source);//导入数据
+                Thread t1 = new Thread(() => {
+                    foreach (string source in dataSouce) {
+                        dataSet = importExcelToDataSet(source);//导入数据
 
-                    dataFill();
-                }
-                insertData();
-                
-                MessageBox.Show("数据导入完毕");
+                        dataFill();
+                    }
+                    insertData();
+                    MessageBox.Show("数据导入完毕");
+                });
+                t1.Start();
             }
         }
 
@@ -360,11 +323,32 @@ namespace CFJDS {
             }
         }
 
-        private void readData() {
+        private void readData(string id) {
             
             dataList = new ArrayList();
             StringBuilder sql = new StringBuilder();
-            sql.Append("select 鹤城所.*, 鹤城所没收.ID from  鹤城所 left join 鹤城所没收 on 鹤城所.GUID=鹤城所没收.GUID");
+            sql.Append("select 鹤城所.*, 鹤城所没收.ID from  鹤城所 left join 鹤城所没收 on 鹤城所.GUID=鹤城所没收.GUID ");
+            if (!string.IsNullOrEmpty(id)) {
+                if (id.Split('-').Length == 1) {
+                    sql.Append("where 鹤城所.id = ");
+                    sql.Append(id);
+                } else {
+                    string a = id.Split('-')[0];
+                    string b = id.Split('-')[1];
+                    sql.Append("where ");
+
+                    sql.Append("鹤城所.id>= ");
+                    if (string.IsNullOrEmpty(a)) {
+                        sql.Append(0);
+                    } else {
+                        sql.Append(a);
+                    }
+                    if (!string.IsNullOrEmpty(b)) {
+                        sql.Append(" and 鹤城所.id<= ");
+                        sql.Append(b);
+                    }
+                }
+            }
             CFSJDal db = new CFSJDal(strConnection);
             using (SQLiteDataReader reader = db.ExecuteReader(sql.ToString(), null)) {
                 while (reader.Read()) {
@@ -402,5 +386,38 @@ namespace CFJDS {
            
             
         }
+
+
+
+        private void tbxID_MouseEnter(object sender, EventArgs e) {
+            ToolTip tooltip = new ToolTip();
+            tooltip.Show("请键入要生成的批文号/或批文范围（用逗号分开）例如：1，3，5-12", tbxID);
+        }
+
+        private void tbxID_TextChanged(object sender, EventArgs e) {
+
+        }
+
+        private void tsmQuit_Click(object sender, EventArgs e) {
+            Application.Exit();
+        }
+
+        private void tsmSaveData_Click(object sender, EventArgs e) {
+            if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\backup")) {//判断文件目录是否已经存在
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\backup" );//创建文件夹
+            }
+
+            File.Copy(newData, oldData, true);
+        }
+
+        private void tsmRevertData_Click(object sender, EventArgs e) {
+            if (!File.Exists(oldData)) {
+                MessageBox.Show("无保存数据！！");
+            } else {
+                File.Copy(oldData, newData, true);
+            }
+        }
+
+
     }
 }
