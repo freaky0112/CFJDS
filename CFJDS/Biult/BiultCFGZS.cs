@@ -71,6 +71,7 @@ namespace CFJDS {
         /// <param name="data"></param>
         private void addText(BiultReportForm brf, DataCFSJ data) {
             brf.SetLineSpacing(21f,Microsoft.Office.Interop.Word.WdLineSpacing.wdLineSpace1pt5);
+            pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             pFontName = "仿宋_GB2312";
             pText = "";
             foreach (string name in data.Names) {
@@ -129,8 +130,6 @@ namespace CFJDS {
                 pText += "的权利。";
             }
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
-            addLine(brf);
-            pText = "";
             addLine(brf);
             pText = "青田县国土资源局        ";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;

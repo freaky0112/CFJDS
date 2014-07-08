@@ -92,7 +92,7 @@ namespace CFJDS {
                     pText = "    ";
                 }
                 addTxt(brf);//性别
-                pText = "汉族；出生于";
+                pText = "，汉族；出生于";
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
@@ -169,10 +169,6 @@ namespace CFJDS {
             addLine(brf);
             pText = "    如不服本处罚决定的，可在接到本处罚决定书之日起六十日内向丽水巿国土资源局或青田县人民政府提出行政复议申请，或者在三个月内向人民法院提起行政诉讼，逾期既不申请复议又不提起诉讼，又不履行本处罚决定的，本局将申请人民法院强制执行，费用由被处罚人支付。";
             //处罚总金额大于5W有听证            
-            addLine(brf);
-            pText = "";
-            addLine(brf);
-            addLine(brf);
             addLine(brf);
             pText = "青田县国土资源局        ";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;

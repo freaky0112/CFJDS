@@ -94,8 +94,11 @@ namespace CFJDS {
                     brf.CreateAWord();//创建文档
                     bcindex.addIndex(brf, data);//创建目录
                     bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                    bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                    bcfjds.addCFJDS(brf, data);//创建处罚决定书
                     bcfjds.addCFJDS(brf, data);//创建处罚决定书
                     if (!data.ConfiscateID.ToString().Equals("0")) {
+                        bccljd.addCLJD(brf, data);//创建处理决定
                         bccljd.addCLJD(brf, data);//创建处理决定
                     }
                     brf.SaveWord(filePath);//保存
@@ -166,40 +169,55 @@ namespace CFJDS {
         private void dataFill() {
             try {
                 foreach (DataRow dr in dataSet.Tables[0].Rows) {
-                    if (IsNumber(dr[0].ToString())) {
-                        data = new DataCFSJ();//初始化数据
-                        //data.ID = Int32.Parse(dr[0].ToString());
-                        data.Name = dr[1].ToString();//户主姓名
-                        data.CardID = dr[2].ToString().Replace("\n", ""); ;//身份证
-                        data.Location = dr[4].ToString();//座落地点
-                        data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
-                        data.Area = double.Parse(dr[6].ToString());//实地占地面积
-                        data.LegalArea = double.Parse(dr[7].ToString());//合法面积
-                        data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
-                        data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
-                        data.Price = double.Parse(dr[10].ToString());//处罚金额
-                        data.Layer = double.Parse(dr[11].ToString());//建设层数
-                        data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
-                        data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
-                        data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
+                    try {
 
-                        data.CardIDs = data.CardID.Split('、');
+                        if (IsNumber(dr[0].ToString())) {
+                            data = new DataCFSJ();//初始化数据
+                            //data.ID = Int32.Parse(dr[0].ToString());
+                            data.Name = dr[1].ToString();//户主姓名
+                            data.CardID = dr[2].ToString().Replace("\n", "");//身份证
+                            data.Location = dr[4].ToString();//座落地点
+                            data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
+                            data.Area = double.Parse(dr[6].ToString());//实地占地面积
+                            data.LegalArea = double.Parse(dr[7].ToString());//合法面积
+                            data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
+                            data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
+                            data.Price = double.Parse(dr[10].ToString());//处罚金额
+                            data.Layer = double.Parse(dr[11].ToString());//建设层数
+                            data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                            data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
+                            data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
 
-                        data.Guid = System.Guid.NewGuid().ToString();//GUID生成
-                        if (data.IsnotConfiscate) {
-                            data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
-                            data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
-                            data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
-                            data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+                            data.CardIDs = data.CardID.Split('、');
+                            if (data.CardIDs.Length != data.Names.Length) {
+                                throw new Exception(data.Name+"，"+data.Location+"处数据有误请核实");                                    
+                            }
+                            foreach (string cardid in data.CardIDs) {
+                                if (cardid.Length != 18&&cardid.Length!=0) {
+                                    //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
+                                    //Exception ex=new Exception();
+                                    //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
+                                    throw new Exception(data.Name + "，" + data.Location + "处身份证号码数据有误请核实");                                    
+                                }
+                            }
+                            data.Guid = System.Guid.NewGuid().ToString();//GUID生成
+                            if (data.IsnotConfiscate) {
+                                data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
+                                data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
+                                data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
+                                data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+                            }
+                            if (data.IllegaArea / data.Names.Length > 0) {//判断是否要处罚，平均每户小于1平方免于处罚
+                                dataList.Add(data);
+                            }
                         }
-                        if (data.IllegaArea / data.Names.Length > 1) {//判断是否要处罚，平均每户小于1平方免于处罚
-                            dataList.Add(data);
-                        }
+                    } catch (Exception ex) {
+                        throw ex;
                     }
 
                 }
             } catch (Exception ex) {
-                throw ex;
+                MessageBox.Show(ex.Message);
             }
         }
 

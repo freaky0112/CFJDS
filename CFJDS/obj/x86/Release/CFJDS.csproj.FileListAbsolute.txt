@@ -19,3 +19,6 @@ E:\workspace\CFJDS\CFJDS\bin\x86\Release\CFJDS.application
 E:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.exe.manifest
 E:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.application
 E:\workspace\CFJDS\CFJDS\bin\x86\Release\CFSJ.db
+E:\workspace\CFJDS\CFJDS\bin\x86\Release\SQLite.Designer.xml
+E:\workspace\CFJDS\CFJDS\bin\x86\Release\System.Data.SQLite.xml
+E:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.FormChoose.resources
