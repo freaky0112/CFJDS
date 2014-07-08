@@ -55,7 +55,7 @@ namespace CFJDS {
             addLine(brf);
             pFontSize = 12;
             pFontBold = 0;//设置细体
-            pText = "青土资告字〔2014〕" + data.Code + String.Format("{0:0000}", data.ID) + "号";
+            pText = "青土资告字〔2014〕第" + data.Code + String.Format("{0:0000}", data.ID) + "号";
             addLine(brf);
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineSingle;
             pText = "                                                       ";
@@ -100,7 +100,7 @@ namespace CFJDS {
                 pText+="，用于建房。经核对青田县";
             }
             pText += data.Town;
-            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等有关法律法规有关规定。本局依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对你的违法行为作如下行政处罚：";
+            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。本局依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对你的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
             pText = "";
