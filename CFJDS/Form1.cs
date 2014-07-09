@@ -145,7 +145,7 @@ namespace CFJDS {
                             data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
                             data.Price = double.Parse(dr[10].ToString());//处罚金额
                             data.Layer = double.Parse(dr[11].ToString());//建设层数
-                            //data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                            data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
                             data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
                             data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
 

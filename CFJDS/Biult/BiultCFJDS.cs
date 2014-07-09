@@ -45,7 +45,8 @@ namespace CFJDS {
         /// 标题
         /// </summary>
         /// <param name="brf"></param>    
-        private void addTitle(BiultReportForm brf,DataCFSJ data) {
+        private void addTitle(BiultReportForm brf, DataCFSJ data) {
+            pFontName = "宋体";
             pText = "青田县国土资源局";
             pFontSize = 24;
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
