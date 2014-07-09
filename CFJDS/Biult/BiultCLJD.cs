@@ -46,17 +46,20 @@ namespace CFJDS {
         /// </summary>
         /// <param name="brf"></param>    
         private void addTitle(BiultReportForm brf, DataCFSJ data) {
+            brf.TypeBackspace();
             pText = "青田县国土资源局";
-            pFontSize = 26;
+            pFontSize = 24;
             pFontName = "宋体";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
             pFontBold = 1;//设置粗体
             addLine(brf);
-            pFontSize = 26;
+            pFontSize = 24;
             pText = "关于对被没收房屋的处理决定";
             addLine(brf);
-            pFontSize = 15;
+            pFontSize = 12;
             pFontBold = 0;//设置细体
+            pText = "";
+            addLine(brf);
             pText = "青土资没作字〔2014〕" + data.Code + String.Format("{0:0000}", data.ConfiscateID) + "号";
             ptextAlignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphRight;
             addLine(brf);
@@ -69,12 +72,13 @@ namespace CFJDS {
         private void addText(BiultReportForm brf, DataCFSJ data) {
             pFontName = "仿宋_GB2312";
             pText = "";
+            addLine(brf);
             foreach (string name in data.Names) {
                 pText += name + "、";
             }
             pText = pText.TrimEnd('、');
             pText += ":";
-            pFontSize = 15;
+            pFontSize = 16;
             ptextAlignment = 0;
             addLine(brf);
             pText = "    我局行政处罚决定书（青土资罚〔2014〕";

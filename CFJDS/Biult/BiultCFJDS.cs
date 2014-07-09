@@ -46,6 +46,9 @@ namespace CFJDS {
         /// </summary>
         /// <param name="brf"></param>    
         private void addTitle(BiultReportForm brf, DataCFSJ data) {
+            if (GetOffice.isNotNewOffice()) {
+                brf.TypeBackspace();
+            }
             pFontName = "宋体";
             pText = "青田县国土资源局";
             pFontSize = 24;
@@ -151,7 +154,7 @@ namespace CFJDS {
             }
            
             pText += data.Town;
-            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。本局依照《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，拟对被处罚人的违法行为作如下行政处罚：";
+            pText += "土地利用总体规划，该地块符合土地利用总体规划。以上事实有调查摸底登记表、违法建筑照片、违法建筑处置公示清单等证据证实。其行为违反了《中华人民共和国土地管理法》、《浙江省实施〈中华人民共和国土地管理法〉办法》等法律法规有关规定。依照《中华人民共和国土地管理法》和《青田县人民政府关于印发青田县实施〈浙江省违法建筑处置规定〉细则（暂行）》（青政发〔2014〕62号）有关规定，对被处罚人的违法行为作如下行政处罚：";
             pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
             addLine(brf);
             pText = "";

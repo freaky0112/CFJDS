@@ -17,7 +17,7 @@ namespace CFJDS {
     public partial class BiultForm : Form {
         public BiultForm() {
             CheckForIllegalCrossThreadCalls = false;
-            
+
             InitializeComponent();
             cbbTowns.SelectedIndex = 0;
             FormChoose formChoose = new FormChoose();
@@ -55,7 +55,7 @@ namespace CFJDS {
             try {
                 string ids = tbxID.Text;
                 generate(ids);
-                
+
             } catch (Exception ex) { throw ex; }
         }
 
@@ -110,6 +110,8 @@ namespace CFJDS {
                                 bccljd.addCLJD(brf, data);//创建处理决定
                                 bccljd.addCLJD(brf, data);//创建处理决定
                             }
+                            brf.TypeBackspace();
+                            brf.TypeBackspace();
                             brf.SaveWord(filePath);//保存
                             count++;
                             lblSpeed.Text = Math.Round(count * 100 / length, 2) + "%";
@@ -121,7 +123,7 @@ namespace CFJDS {
                     System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory());
                 });
                 t1.Start();
-                
+
             } catch (Exception ex) {
                 throw ex;
             }
@@ -148,17 +150,17 @@ namespace CFJDS {
                             data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
                             data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
                             data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
-
+                            data.Account = dr[3].ToString();//户口人数
                             data.CardIDs = data.CardID.Split('、');
                             if (data.CardIDs.Length != data.Names.Length) {
-                                throw new Exception(data.Name+"，"+data.Location+"处数据有误请核实");                                    
+                                throw new Exception(data.Name + "，" + data.Location + "处数据有误请核实");
                             }
                             foreach (string cardid in data.CardIDs) {
-                                if (cardid.Length != 18&&cardid.Length!=0) {
+                                if (cardid.Length != 18 && cardid.Length != 0) {
                                     //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
                                     //Exception ex=new Exception();
                                     //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
-                                    throw new Exception(data.Name + "，" + data.Location + "处身份证号码数据有误请核实");                                    
+                                    throw new Exception(data.Name + "，" + data.Location + "处身份证号码数据有误请核实");
                                 }
                             }
                             data.Guid = System.Guid.NewGuid().ToString();//GUID生成
@@ -209,14 +211,14 @@ namespace CFJDS {
             if (openFileDialog.ShowDialog() == DialogResult.OK) {
                 dataSouce = openFileDialog.FileNames;
                 StringBuilder source = new StringBuilder();
-                foreach(string name in dataSouce){
+                foreach (string name in dataSouce) {
                     source.Append(name);
                     source.Append(";");
                 }
                 tbxDataSource.Text = source.ToString();
             }
         }
-        
+
 
         private DataSet importExcelToDataSet(string souce) {
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + souce + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
@@ -237,42 +239,48 @@ namespace CFJDS {
             if (string.IsNullOrEmpty(tbxDataSource.Text)) {
                 MessageBox.Show("请选择数据来源");
             } else {
-                Thread t1 = new Thread(() => {
-                    foreach (string source in dataSouce) {
-                        dataSet = importExcelToDataSet(source);//导入数据
+                try {
+                    Thread t1 = new Thread(() => {
+                        foreach (string source in dataSouce) {
+                            dataSet = importExcelToDataSet(source);//导入数据
 
-                        dataFill();
-                    }
-                    insertData();
-                    MessageBox.Show("数据导入完毕");
-                });
-                t1.Start();
+                            dataFill();
+                        }
+                        insertData();
+                        MessageBox.Show("数据导入完毕");
+                    });
+                    t1.Start();
+                } catch (Exception ex) {
+                    MessageBox.Show(ex.Message);
+                }
             }
         }
 
         private void insertData() {
             StringBuilder sql = new StringBuilder();
             sql.Append("insert into 鹤城所 (");
-            sql.Append("户主,");                                
-            sql.Append("身份证号,");                            
-            sql.Append("乡镇,");                                
-            sql.Append("土地座落,");                            
-            sql.Append("占地面积,");                            
-            sql.Append("建筑面积,");                            
-            sql.Append("层数,");                                
-            sql.Append("建成年月,");                            
-            sql.Append("审批面积,");                            
-            sql.Append("超建面积,");                            
-            sql.Append("单价,");                                
-            sql.Append("金额,");                                
-            sql.Append("没收占地面积,");                        
-            sql.Append("没收建筑面积,");                        
-            sql.Append("没收单价,");                            
-            sql.Append("没收金额,");                            
-            sql.Append("GUID");                                 
+            sql.Append("户主,");
+            sql.Append("身份证号,");
+            sql.Append("户口人数,");
+            sql.Append("乡镇,");
+            sql.Append("土地座落,");
+            sql.Append("占地面积,");
+            sql.Append("建筑面积,");
+            sql.Append("层数,");
+            sql.Append("建成年月,");
+            sql.Append("审批面积,");
+            sql.Append("超建面积,");
+            sql.Append("单价,");
+            sql.Append("金额,");
+            sql.Append("没收占地面积,");
+            sql.Append("没收建筑面积,");
+            sql.Append("没收单价,");
+            sql.Append("没收金额,");
+            sql.Append("GUID");
             sql.Append(") values (");
             sql.Append("@Name,");
             sql.Append("@CardID,");
+            sql.Append("@Account,");
             sql.Append("@Town,");
             sql.Append("@Location,");
             sql.Append("@Area,");
@@ -288,11 +296,13 @@ namespace CFJDS {
             sql.Append("@ConfiscateAreaUnit,");
             sql.Append("@ConfiscateAreaPrice,");
             sql.Append("@Guid)");
+
             CFSJDal db = new CFSJDal(strConnection);
             foreach (DataCFSJ data in dataList) {
                 SQLiteParameter[] parameters = new SQLiteParameter[]{
                     new SQLiteParameter("@Name",data.Name.ToString()),
                     new SQLiteParameter("@CardID",data.CardID.ToString()),
+                    new SQLiteParameter("@Account",data.Account.ToString()),
                     new SQLiteParameter("@Town",data.Town.ToString()),
                     new SQLiteParameter("@Location",data.Location.ToString()),
                     new SQLiteParameter("@Area",data.Area.ToString()),
@@ -307,7 +317,7 @@ namespace CFJDS {
                     new SQLiteParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
                     new SQLiteParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
                     new SQLiteParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
-                    new SQLiteParameter("@Guid",data.Guid.ToString())
+                    new SQLiteParameter("@Guid",data.Guid.ToString())                        
                 };
                 if (data.ConfiscateArea != 0) {
                     StringBuilder _sql = new StringBuilder();
@@ -324,7 +334,7 @@ namespace CFJDS {
         }
 
         private void readData(string id) {
-            
+
             dataList = new ArrayList();
             StringBuilder sql = new StringBuilder();
             sql.Append("select 鹤城所.*, 鹤城所没收.ID from  鹤城所 left join 鹤城所没收 on 鹤城所.GUID=鹤城所没收.GUID ");
@@ -383,8 +393,8 @@ namespace CFJDS {
         }
 
         private void BiultForm_Load(object sender, EventArgs e) {
-           
-            
+
+
         }
 
 
@@ -404,7 +414,7 @@ namespace CFJDS {
 
         private void tsmSaveData_Click(object sender, EventArgs e) {
             if (!Directory.Exists(Directory.GetCurrentDirectory() + @"\backup")) {//判断文件目录是否已经存在
-                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\backup" );//创建文件夹
+                Directory.CreateDirectory(Directory.GetCurrentDirectory() + @"\backup");//创建文件夹
             }
 
             File.Copy(newData, oldData, true);

@@ -61,7 +61,12 @@ namespace CFJDS {
             this._wordApplication.Application.Selection.ParagraphFormat.Alignment = ptextAlignment;
             this._wordApplication.Application.Selection.TypeText(pText);
         }
-
+        /// <summary>
+        /// 退格
+        /// </summary>
+        public void TypeBackspace() {
+            this._wordApplication.Application.Selection.TypeBackspace();
+        }
 
         /// <SUMMARY></SUMMARY>   
         /// 换行   
