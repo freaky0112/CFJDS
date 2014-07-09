@@ -154,7 +154,7 @@ namespace CFJDS {
                             data.LandOwner = dr[28].ToString();//土地性质
                             data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
                             //data.IsnotConfiscate = ConfiscateCalculate.isNotConfiscate(data);
-                            data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
+                            //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
                             data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
                             data.Accounts = dr[3].ToString();//户口人数
                             data.CardIDs = data.CardID.Split('、');
@@ -336,7 +336,7 @@ namespace CFJDS {
                     new SQLiteParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
                     new SQLiteParameter("@Guid",data.Guid.ToString())     
                  };
-                if (data.ConfiscateArea != 0) {
+                if (data.ConfiscateAreaPrice != 0) {
                     StringBuilder _sql = new StringBuilder();
                     _sql.Append("insert into 鹤城所没收 ");
                     _sql.Append("(GUID) values ");
