@@ -47,11 +47,27 @@ namespace CFJDS {
         /// <summary>
         /// 户籍人数
         /// </summary>
-        private string _account;
+        private string _accounts;
 
-        public string Account {
-            get { return _account; }
-            set { _account = value; }
+        public string Accounts {
+            get { return _accounts; }
+            set { _accounts = value; }
+        }
+        /// <summary>
+        /// 土地权属
+        /// </summary>
+        private string _landOwner;
+
+        public string LandOwner {
+            get { return _landOwner; }
+            set { _landOwner = value; }
+        }
+
+        private string _control;
+
+        public string Control {
+            get { return _control; }
+            set { _control = value; }
         }
         /// <summary>
         /// 占地面积
@@ -108,6 +124,15 @@ namespace CFJDS {
         public bool IsnotConfiscate {
             get { return _isnotConfiscate; }
             set { _isnotConfiscate = value; }
+        }
+        /// <summary>
+        /// 限额面积
+        /// </summary>
+        private int _quotaArea;
+
+        public int QuotaArea {
+            get { return _quotaArea; }
+            set { _quotaArea = value; }
         }
         /// <summary>
         /// 没收占地面积
@@ -227,7 +252,7 @@ namespace CFJDS {
                 if (_cardIDs!=null) {
                     for (int i = 0; i < _cardIDs.Length; i++) {
                         string id = _cardIDs[i].Replace("\n", "").Trim();
-                        if (!string.IsNullOrEmpty(id)) {
+                        if (id.Length==18) {
                             string sex = "";
                             if (Int32.Parse(id.Substring(16, 1)) % 2 == 0) {
                                 sex = "女";
@@ -291,6 +316,33 @@ namespace CFJDS {
         public double Layer {
             get { return _layer; }
             set { _layer = value; }
+        }
+        /// <summary>
+        /// 一户一宅
+        /// </summary>
+        private string _oneToOne;
+
+        public string OneToOne {
+            get { return _oneToOne; }
+            set { _oneToOne = value; }
+        }
+        
+        private string _available;
+        /// <summary>
+        /// 建房资格
+        /// </summary>
+        public string Available {
+            get { return _available; }
+            set { _available = value; }
+        }
+        /// <summary>
+        /// 土地利用总体规划
+        /// </summary>
+        private string conform;
+
+        public string Conform {
+            get { return conform; }
+            set { conform = value; }
         }
 
     }

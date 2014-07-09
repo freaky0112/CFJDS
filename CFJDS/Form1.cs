@@ -139,6 +139,7 @@ namespace CFJDS {
                             //data.ID = Int32.Parse(dr[0].ToString());
                             data.Name = dr[1].ToString();//户主姓名
                             data.CardID = dr[2].ToString().Replace("\n", "").Trim();//身份证
+                            data.Accounts = dr[3].ToString().Replace("\n", "").Trim();//家庭人口
                             data.Location = dr[4].ToString();//座落地点
                             data.BuildDate = Int32.Parse(dr[5].ToString());//建成年月
                             data.Area = double.Parse(dr[6].ToString());//实地占地面积
@@ -147,10 +148,15 @@ namespace CFJDS {
                             data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
                             data.Price = double.Parse(dr[10].ToString());//处罚金额
                             data.Layer = double.Parse(dr[11].ToString());//建设层数
+                            data.Conform = dr[22].ToString();//土地利用总体规划
+                            data.Available = dr[21].ToString();//建房资格
+                            data.Control = dr[29].ToString();//控制区
+                            data.LandOwner = dr[28].ToString();//土地性质
                             data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                            //data.IsnotConfiscate = ConfiscateCalculate.isNotConfiscate(data);
                             data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
                             data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
-                            data.Account = dr[3].ToString();//户口人数
+                            data.Accounts = dr[3].ToString();//户口人数
                             data.CardIDs = data.CardID.Split('、');
                             if (data.CardIDs.Length != data.Names.Length) {
                                 throw new Exception(data.Name + "，" + data.Location + "处数据有误请核实");
@@ -164,11 +170,14 @@ namespace CFJDS {
                                 }
                             }
                             data.Guid = System.Guid.NewGuid().ToString();//GUID生成
+                            data = ConfiscateCalculate.getConfiscateData(data);
+
                             if (data.IsnotConfiscate) {
-                                data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
-                                data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
-                                data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
-                                data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
+
+                                //data.ConfiscateArea = double.Parse(dr[23].ToString());//没收面积
+                                //data.ConfiscateAreaUnit = Int32.Parse(dr[24].ToString());//没收单价
+                                //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//没收金额
+                                //data.ConfiscateFloorArea = data.ConfiscateArea / data.Layer;//没收占地面积
                             }
                             if (data.IllegaArea / data.Names.Length > 0) {//判断是否要处罚，平均每户小于1平方免于处罚
                                 dataList.Add(data);
@@ -223,7 +232,7 @@ namespace CFJDS {
         private DataSet importExcelToDataSet(string souce) {
             string strConn = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + souce + ";" + ";Extended Properties=\"Excel 8.0;HDR=YES;IMEX=1\"";
             OleDbConnection conn = new OleDbConnection(strConn);
-            OleDbDataAdapter myCommand = new OleDbDataAdapter("SELECT * FROM [处罚金额$A:AB]", strConn);
+            OleDbDataAdapter myCommand = new OleDbDataAdapter("SELECT * FROM [处罚金额$A:AF]", strConn);
             DataSet myDataSet = new DataSet();
             try {
                 myCommand.Fill(myDataSet);
@@ -261,13 +270,16 @@ namespace CFJDS {
             sql.Append("insert into 鹤城所 (");
             sql.Append("户主,");
             sql.Append("身份证号,");
-            sql.Append("户口人数,");
             sql.Append("乡镇,");
+            sql.Append("户口人数,");
             sql.Append("土地座落,");
+            sql.Append("控制区,");
+            sql.Append("土地性质,");
             sql.Append("占地面积,");
-            sql.Append("建筑面积,");
             sql.Append("层数,");
             sql.Append("建成年月,");
+            sql.Append("土地利用总体规划,");
+            sql.Append("建房资格,");
             sql.Append("审批面积,");
             sql.Append("超建面积,");
             sql.Append("单价,");
@@ -280,13 +292,16 @@ namespace CFJDS {
             sql.Append(") values (");
             sql.Append("@Name,");
             sql.Append("@CardID,");
-            sql.Append("@Account,");
             sql.Append("@Town,");
+            sql.Append("@Accounts,");
             sql.Append("@Location,");
+            sql.Append("@Control,");
+            sql.Append("@LandOwner,");
             sql.Append("@Area,");
-            sql.Append("@ConfiscateArea,");
             sql.Append("@Layer,");
             sql.Append("@BuildDate,");
+            sql.Append("@Conform,");
+            sql.Append("@Available,");
             sql.Append("@LegalArea,");
             sql.Append("@IllegaArea,");
             sql.Append("@IllegaUnit,");
@@ -296,19 +311,21 @@ namespace CFJDS {
             sql.Append("@ConfiscateAreaUnit,");
             sql.Append("@ConfiscateAreaPrice,");
             sql.Append("@Guid)");
-
             CFSJDal db = new CFSJDal(strConnection);
             foreach (DataCFSJ data in dataList) {
                 SQLiteParameter[] parameters = new SQLiteParameter[]{
                     new SQLiteParameter("@Name",data.Name.ToString()),
                     new SQLiteParameter("@CardID",data.CardID.ToString()),
-                    new SQLiteParameter("@Account",data.Account.ToString()),
                     new SQLiteParameter("@Town",data.Town.ToString()),
+                    new SQLiteParameter("@Accounts",data.Accounts.ToString()),
                     new SQLiteParameter("@Location",data.Location.ToString()),
+                    new SQLiteParameter("@Control",data.Control.ToString()),
+                    new SQLiteParameter("@LandOwner",data.LandOwner.ToString()),
                     new SQLiteParameter("@Area",data.Area.ToString()),
-                    new SQLiteParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
                     new SQLiteParameter("@Layer",data.Layer.ToString()),
                     new SQLiteParameter("@BuildDate",data.BuildDate.ToString()),
+                    new SQLiteParameter("@Conform",data.Conform.ToString()),
+                    new SQLiteParameter("@Available",data.Available.ToString()),
                     new SQLiteParameter("@LegalArea",data.LegalArea.ToString()),
                     new SQLiteParameter("@IllegaArea",data.IllegaArea.ToString()),
                     new SQLiteParameter("@IllegaUnit",data.IllegaUnit.ToString()),
@@ -317,8 +334,8 @@ namespace CFJDS {
                     new SQLiteParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
                     new SQLiteParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
                     new SQLiteParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
-                    new SQLiteParameter("@Guid",data.Guid.ToString())                        
-                };
+                    new SQLiteParameter("@Guid",data.Guid.ToString())     
+                 };
                 if (data.ConfiscateArea != 0) {
                     StringBuilder _sql = new StringBuilder();
                     _sql.Append("insert into 鹤城所没收 ");
@@ -367,22 +384,27 @@ namespace CFJDS {
                     data.Name = reader[1].ToString();
                     data.CardID = reader[3].ToString();
                     data.Town = reader[4].ToString();
+                    data.Accounts = reader[6].ToString();
                     data.Location = reader[8].ToString();
-                    data.Area = double.Parse(reader[9].ToString());
-                    data.Layer = double.Parse(reader[18].ToString());
-                    data.BuildDate = Int32.Parse(reader[13].ToString());
-                    data.LegalArea = double.Parse(reader[15].ToString());
-                    data.IllegaArea = double.Parse(reader[17].ToString());
-                    data.IllegaUnit = Int32.Parse(reader[18].ToString());
-                    data.Price = double.Parse(reader[20].ToString());
-                    data.ConfiscateFloorArea = double.Parse(reader[21].ToString());
-                    data.ConfiscateArea = double.Parse(reader[22].ToString());
-                    data.ConfiscateAreaUnit = Int32.Parse(reader[23].ToString());
-                    data.ConfiscateAreaPrice = double.Parse(reader[24].ToString());
-                    data.Guid = reader[26].ToString();
+                    data.Control = reader[9].ToString();
+                    data.LandOwner = reader[10].ToString();
+                    data.Area = double.Parse(reader[11].ToString());
+                    data.Layer = double.Parse(reader[14].ToString());
+                    data.BuildDate = Int32.Parse(reader[15].ToString());
+                    data.Conform = reader[16].ToString();
+                    data.Available = reader[17].ToString();
+                    data.LegalArea = double.Parse(reader[18].ToString());
+                    data.IllegaArea = double.Parse(reader[20].ToString());
+                    data.IllegaUnit = Int32.Parse(reader[21].ToString());
+                    data.Price = double.Parse(reader[23].ToString());
+                    data.ConfiscateFloorArea = double.Parse(reader[24].ToString());
+                    data.ConfiscateArea = double.Parse(reader[25].ToString());
+                    data.ConfiscateAreaUnit = Int32.Parse(reader[26].ToString());
+                    data.ConfiscateAreaPrice = double.Parse(reader[27].ToString());
+                    data.Guid = reader[29].ToString();
                     data.CardIDs = data.CardID.Split('、');
-                    if (!string.IsNullOrEmpty(reader[27].ToString())) {
-                        data.ConfiscateID = Int32.Parse(reader[27].ToString());
+                    if (!string.IsNullOrEmpty(reader[30].ToString())) {
+                        data.ConfiscateID = Int32.Parse(reader[30].ToString());
                     }
                     dataList.Add(data);
                 }

@@ -100,6 +100,7 @@
     <Compile Include="Biult\BiultCFJDS.cs" />
     <Compile Include="Biult\BiultCLJD.cs" />
     <Compile Include="Biult\BiultIndex.cs" />
+    <Compile Include="ConfiscateCalculate.cs" />
     <Compile Include="Common\BiultReportForm.cs" />
     <Compile Include="Common\CFSJDal.cs" />
     <Compile Include="CFSJDataSet.Designer.cs">
@@ -121,7 +122,7 @@
     <Compile Include="FormChoose.Designer.cs">
       <DependentUpon>FormChoose.cs</DependentUpon>
     </Compile>
-    <Compile Include="GetOffice.cs" />
+    <Compile Include="Common\GetOffice.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
