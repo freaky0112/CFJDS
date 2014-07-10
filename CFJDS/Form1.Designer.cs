@@ -35,13 +35,15 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.文件ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.打开ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmSaveData = new System.Windows.Forms.ToolStripMenuItem();
-            this.tbxID = new System.Windows.Forms.TextBox();
-            this.tsmQuit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmRevertData = new System.Windows.Forms.ToolStripMenuItem();
-            this.label2 = new System.Windows.Forms.Label();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmSaveData = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmRevertData = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.tsmQuit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tbxID = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btnQuery = new System.Windows.Forms.Button();
+            this.tvwIDs = new System.Windows.Forms.TreeView();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -70,16 +72,16 @@
             // 
             // prbSpeed
             // 
-            this.prbSpeed.Location = new System.Drawing.Point(12, 200);
+            this.prbSpeed.Location = new System.Drawing.Point(12, 509);
             this.prbSpeed.Name = "prbSpeed";
-            this.prbSpeed.Size = new System.Drawing.Size(471, 23);
+            this.prbSpeed.Size = new System.Drawing.Size(434, 23);
             this.prbSpeed.Step = 1;
             this.prbSpeed.TabIndex = 2;
             // 
             // lblSpeed
             // 
             this.lblSpeed.AutoSize = true;
-            this.lblSpeed.Location = new System.Drawing.Point(489, 211);
+            this.lblSpeed.Location = new System.Drawing.Point(452, 509);
             this.lblSpeed.Name = "lblSpeed";
             this.lblSpeed.Size = new System.Drawing.Size(17, 12);
             this.lblSpeed.TabIndex = 3;
@@ -151,7 +153,7 @@
             this.文件ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(524, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(493, 24);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -171,16 +173,40 @@
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
             this.打开ToolStripMenuItem.Text = "打开";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.tbxDataSource_DoubleClick);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
             // 
             // tsmSaveData
             // 
             this.tsmSaveData.Name = "tsmSaveData";
-            this.tsmSaveData.Size = new System.Drawing.Size(152, 22);
+            this.tsmSaveData.Size = new System.Drawing.Size(146, 22);
             this.tsmSaveData.Text = "保存导入数据";
             this.tsmSaveData.Click += new System.EventHandler(this.tsmSaveData_Click);
+            // 
+            // tsmRevertData
+            // 
+            this.tsmRevertData.Name = "tsmRevertData";
+            this.tsmRevertData.Size = new System.Drawing.Size(146, 22);
+            this.tsmRevertData.Text = "还原数据";
+            this.tsmRevertData.Click += new System.EventHandler(this.tsmRevertData_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
+            // 
+            // tsmQuit
+            // 
+            this.tsmQuit.Name = "tsmQuit";
+            this.tsmQuit.Size = new System.Drawing.Size(146, 22);
+            this.tsmQuit.Text = "退出";
+            this.tsmQuit.Click += new System.EventHandler(this.tsmQuit_Click);
             // 
             // tbxID
             // 
@@ -191,20 +217,6 @@
             this.tbxID.TextChanged += new System.EventHandler(this.tbxID_TextChanged);
             this.tbxID.MouseEnter += new System.EventHandler(this.tbxID_MouseEnter);
             // 
-            // tsmQuit
-            // 
-            this.tsmQuit.Name = "tsmQuit";
-            this.tsmQuit.Size = new System.Drawing.Size(152, 22);
-            this.tsmQuit.Text = "退出";
-            this.tsmQuit.Click += new System.EventHandler(this.tsmQuit_Click);
-            // 
-            // tsmRevertData
-            // 
-            this.tsmRevertData.Name = "tsmRevertData";
-            this.tsmRevertData.Size = new System.Drawing.Size(152, 22);
-            this.tsmRevertData.Text = "还原数据";
-            this.tsmRevertData.Click += new System.EventHandler(this.tsmRevertData_Click);
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -214,21 +226,32 @@
             this.label2.TabIndex = 9;
             this.label2.Text = "编号：";
             // 
-            // toolStripSeparator1
+            // btnQuery
             // 
-            this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
+            this.btnQuery.Location = new System.Drawing.Point(408, 143);
+            this.btnQuery.Name = "btnQuery";
+            this.btnQuery.Size = new System.Drawing.Size(75, 23);
+            this.btnQuery.TabIndex = 10;
+            this.btnQuery.Text = "查询";
+            this.btnQuery.UseVisualStyleBackColor = true;
+            this.btnQuery.Click += new System.EventHandler(this.btnQuery_Click);
             // 
-            // toolStripSeparator2
+            // tvwIDs
             // 
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
+            this.tvwIDs.HotTracking = true;
+            this.tvwIDs.Location = new System.Drawing.Point(12, 201);
+            this.tvwIDs.Name = "tvwIDs";
+            this.tvwIDs.Size = new System.Drawing.Size(471, 302);
+            this.tvwIDs.TabIndex = 11;
+            this.tvwIDs.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwIDs_NodeMouseDoubleClick);
             // 
             // BiultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 235);
+            this.ClientSize = new System.Drawing.Size(493, 544);
+            this.Controls.Add(this.tvwIDs);
+            this.Controls.Add(this.btnQuery);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.tbxID);
             this.Controls.Add(this.btnImport);
@@ -245,7 +268,7 @@
             this.MaximizeBox = false;
             this.Name = "BiultForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "法律文书处理";
+            this.Text = "处罚数据处理";
             this.Load += new System.EventHandler(this.BiultForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             this.menuStrip1.ResumeLayout(false);
@@ -275,6 +298,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.Button btnQuery;
+        private System.Windows.Forms.TreeView tvwIDs;
     }
 }
 

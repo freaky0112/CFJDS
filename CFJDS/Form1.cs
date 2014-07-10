@@ -23,9 +23,10 @@ namespace CFJDS {
             FormChoose formChoose = new FormChoose();
             formChoose.ShowDialog();
             this.Text += " - " + formChoose.cbbCode.SelectedItem;
+            code = getCode(formChoose.cbbCode.SelectedItem.ToString());
         }
 
-        string strConnection = System.IO.Directory.GetCurrentDirectory() + @"\CFSJ.db";//数据目录
+        //string strConnection = System.IO.Directory.GetCurrentDirectory() + @"\CFSJ.db";//数据目录
         public int selectCode = new int();
         public string selectGTS = "";
 
@@ -36,11 +37,11 @@ namespace CFJDS {
         BiultCLJD bccljd = new BiultCLJD();
         string[] dataSouce;
         ArrayList dataList = new ArrayList();
-        DataCFSJ data = new DataCFSJ();
+        //DataCFSJ data = new DataCFSJ();
 
         string newData = Directory.GetCurrentDirectory() + @"\CFSJ.db";//当前数据库
         string oldData = Directory.GetCurrentDirectory() + @"\backup\CFSJ.db";//备份数据库
-
+        string code = "";
         //string pText;// 文本信息   
         //int pFontSize;//字体大小  
         //string pFontName = "宋体";
@@ -59,9 +60,9 @@ namespace CFJDS {
             } catch (Exception ex) { throw ex; }
         }
 
-        private void generate(string ids) {
+        private string getCode(string str) {
             string code = "";
-            switch ((this.Text.Split(' '))[2]) {
+            switch (str) {
                 case "鹤城所":
                     code = "A";
                     break;
@@ -84,6 +85,11 @@ namespace CFJDS {
                     code = "G";
                     break;
             }
+            return code;
+        }
+
+        private void generate(string ids) {
+            
             try {
                 Thread t1 = new Thread(() => {
                     foreach (string id in ids.Split('，')) {
@@ -94,7 +100,7 @@ namespace CFJDS {
                         BiultReportForm brf = new BiultReportForm();
                         //lock (lblSpeed) ;
                         for (int i = 0; i < dataList.Count; i++) {
-                            data = (DataCFSJ)dataList[i];
+                            DataCFSJ data = (DataCFSJ)dataList[i];
                             data.Code = code;
                             if (!Directory.Exists(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town)) {//判断文件目录是否已经存在
                                 Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town);//创建文件夹
@@ -131,6 +137,8 @@ namespace CFJDS {
 
         private void dataFill() {
             try {
+                dataList = new ArrayList();
+                DataCFSJ data = new DataCFSJ();
                 foreach (DataRow dr in dataSet.Tables[0].Rows) {
                     try {
 
@@ -311,7 +319,7 @@ namespace CFJDS {
             sql.Append("@ConfiscateAreaUnit,");
             sql.Append("@ConfiscateAreaPrice,");
             sql.Append("@Guid)");
-            CFSJDal db = new CFSJDal(strConnection);
+            CFSJDal db = new CFSJDal(Common.strConnection);
             foreach (DataCFSJ data in dataList) {
                 SQLiteParameter[] parameters = new SQLiteParameter[]{
                     new SQLiteParameter("@Name",data.Name.ToString()),
@@ -376,10 +384,10 @@ namespace CFJDS {
                     }
                 }
             }
-            CFSJDal db = new CFSJDal(strConnection);
+            CFSJDal db = new CFSJDal(Common.strConnection);
             using (SQLiteDataReader reader = db.ExecuteReader(sql.ToString(), null)) {
                 while (reader.Read()) {
-                    data = new DataCFSJ();
+                    DataCFSJ data = new DataCFSJ();
                     data.ID = Int32.Parse(reader[0].ToString());
                     data.Name = reader[1].ToString();
                     data.CardID = reader[3].ToString();
@@ -447,6 +455,42 @@ namespace CFJDS {
                 MessageBox.Show("无保存数据！！");
             } else {
                 File.Copy(oldData, newData, true);
+            }
+        }
+
+        private void btnQuery_Click(object sender, EventArgs e) {
+            tvwIDs.Nodes.Clear();
+            string ids = tbxID.Text;
+            query(ids);
+            tvwIDs.Nodes.Add(string.Empty);
+        }
+
+        private void query(string ids) {
+            foreach (string id in ids.Split('，')) {
+                readData(id);
+            }
+            foreach (DataCFSJ data in dataList) {
+                TreeNode tn = new TreeNode();
+                tn.Text = code+String.Format("{0:0000}", data.ID)+":"+data.Name+";"+data.Location;
+                
+                //lsi.SubItems.Add(data.ID.ToString());
+                tvwIDs.Nodes.Add(tn);
+            }
+        }
+
+        
+
+        private void tvwIDs_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+            try {
+                if (tvwIDs.SelectedNode.Index != tvwIDs.Nodes.Count - 1) {
+                    DataCFSJ data = new DataCFSJ();
+                    data = (DataCFSJ)dataList[tvwIDs.SelectedNode.Index];
+                    DataQueryModify dataQueryModify = new DataQueryModify(data);
+                    dataQueryModify.ShowDialog();
+                }
+                //FormChoose form = new FormChoose();
+            } catch (Exception ex) {
+                //throw ex;
             }
         }
 

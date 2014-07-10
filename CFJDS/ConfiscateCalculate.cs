@@ -9,14 +9,20 @@ namespace CFJDS {
     class ConfiscateCalculate {
 
         public static DataCFSJ getConfiscateData(DataCFSJ data) {
-            
+
             if (isNotConfiscate(data)) {
                 data.QuotaArea = getQuotaArea(data);//没收限额面积
                 data.ConfiscateFloorArea = getConfiscateFloorArea(data);//没收占地面积
                 data.ConfiscateArea = getConfiscateArea(data);//没收面积
-                data.ConfiscateAreaUnit=getConfiscateAreaUnit(data);//没收单价
+                data.ConfiscateAreaUnit = getConfiscateAreaUnit(data);//没收单价
                 data.ConfiscateAreaPrice = getConfiscateAreaPrice(data);//没收金额
+            } else {
+                data.ConfiscateFloorArea = 0;//没收占地面积
+                data.ConfiscateArea = 0;//没收面积
+                data.ConfiscateAreaUnit = 0;//没收单价
+                data.ConfiscateAreaPrice = 0;//没收金额
             }
+
             return data;
         }
         /// <summary>

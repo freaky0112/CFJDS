@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace CFJDS {
-    class DataCFSJ {
+    public class DataCFSJ {
 
         public DataCFSJ() { 
         }
@@ -338,11 +338,11 @@ namespace CFJDS {
         /// <summary>
         /// 土地利用总体规划
         /// </summary>
-        private string conform;
+        private string _conform;
 
         public string Conform {
-            get { return conform; }
-            set { conform = value; }
+            get { return _conform; }
+            set { _conform = value; }
         }
 
     }
