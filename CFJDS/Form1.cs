@@ -35,6 +35,7 @@ namespace CFJDS {
         BiultCFGZS bcfgzs = new BiultCFGZS();
         BiultCFJDS bcfjds = new BiultCFJDS();
         BiultCLJD bccljd = new BiultCLJD();
+        BiultJKTZ bcjktz = new BiultJKTZ();
         string[] dataSouce;
         ArrayList dataList = new ArrayList();
         //DataCFSJ data = new DataCFSJ();
@@ -116,6 +117,7 @@ namespace CFJDS {
                                 bccljd.addCLJD(brf, data);//创建处理决定
                                 bccljd.addCLJD(brf, data);//创建处理决定
                             }
+                            bcjktz.addJKTZ(brf, data);//创建缴款通知单                            
                             brf.TypeBackspace();
                             brf.TypeBackspace();
                             brf.SaveWord(filePath);//保存

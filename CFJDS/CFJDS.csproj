@@ -96,6 +96,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Biult\BiultJKTZ.cs" />
     <Compile Include="Biult\BiultCFGZS.cs" />
     <Compile Include="Biult\BiultCFJDS.cs" />
     <Compile Include="Biult\BiultCLJD.cs" />
