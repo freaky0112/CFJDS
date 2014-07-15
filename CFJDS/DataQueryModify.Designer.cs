@@ -70,6 +70,10 @@
             this.lblBuildDate = new System.Windows.Forms.Label();
             this.tbxLayer = new System.Windows.Forms.TextBox();
             this.lblLayer = new System.Windows.Forms.Label();
+            this.lblFarmUnit = new System.Windows.Forms.Label();
+            this.tbxFarmArea = new System.Windows.Forms.TextBox();
+            this.lblFarmArea = new System.Windows.Forms.Label();
+            this.tbxFarmUnit = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -87,16 +91,16 @@
             // tbxID
             // 
             this.tbxID.Enabled = false;
-            this.tbxID.Location = new System.Drawing.Point(168, 54);
+            this.tbxID.Location = new System.Drawing.Point(108, 54);
             this.tbxID.Name = "tbxID";
-            this.tbxID.Size = new System.Drawing.Size(100, 21);
+            this.tbxID.Size = new System.Drawing.Size(160, 21);
             this.tbxID.TabIndex = 1;
             // 
             // tbxName
             // 
-            this.tbxName.Location = new System.Drawing.Point(168, 96);
+            this.tbxName.Location = new System.Drawing.Point(108, 96);
             this.tbxName.Name = "tbxName";
-            this.tbxName.Size = new System.Drawing.Size(100, 21);
+            this.tbxName.Size = new System.Drawing.Size(160, 21);
             this.tbxName.TabIndex = 3;
             // 
             // lblname
@@ -110,9 +114,9 @@
             // 
             // tbxCardID
             // 
-            this.tbxCardID.Location = new System.Drawing.Point(168, 142);
+            this.tbxCardID.Location = new System.Drawing.Point(108, 142);
             this.tbxCardID.Name = "tbxCardID";
-            this.tbxCardID.Size = new System.Drawing.Size(100, 21);
+            this.tbxCardID.Size = new System.Drawing.Size(160, 21);
             this.tbxCardID.TabIndex = 5;
             // 
             // lblCardID
@@ -126,9 +130,9 @@
             // 
             // tbxTown
             // 
-            this.tbxTown.Location = new System.Drawing.Point(168, 184);
+            this.tbxTown.Location = new System.Drawing.Point(108, 184);
             this.tbxTown.Name = "tbxTown";
-            this.tbxTown.Size = new System.Drawing.Size(100, 21);
+            this.tbxTown.Size = new System.Drawing.Size(160, 21);
             this.tbxTown.TabIndex = 7;
             // 
             // lblTown
@@ -142,9 +146,9 @@
             // 
             // tbxAccounts
             // 
-            this.tbxAccounts.Location = new System.Drawing.Point(168, 301);
+            this.tbxAccounts.Location = new System.Drawing.Point(120, 301);
             this.tbxAccounts.Name = "tbxAccounts";
-            this.tbxAccounts.Size = new System.Drawing.Size(100, 21);
+            this.tbxAccounts.Size = new System.Drawing.Size(148, 21);
             this.tbxAccounts.TabIndex = 9;
             // 
             // label5
@@ -158,9 +162,9 @@
             // 
             // tbxOneToOne
             // 
-            this.tbxOneToOne.Location = new System.Drawing.Point(168, 342);
+            this.tbxOneToOne.Location = new System.Drawing.Point(120, 342);
             this.tbxOneToOne.Name = "tbxOneToOne";
-            this.tbxOneToOne.Size = new System.Drawing.Size(100, 21);
+            this.tbxOneToOne.Size = new System.Drawing.Size(148, 21);
             this.tbxOneToOne.TabIndex = 11;
             // 
             // lblOnetoOne
@@ -174,9 +178,9 @@
             // 
             // tbxLocation
             // 
-            this.tbxLocation.Location = new System.Drawing.Point(168, 388);
+            this.tbxLocation.Location = new System.Drawing.Point(120, 388);
             this.tbxLocation.Name = "tbxLocation";
-            this.tbxLocation.Size = new System.Drawing.Size(100, 21);
+            this.tbxLocation.Size = new System.Drawing.Size(148, 21);
             this.tbxLocation.TabIndex = 13;
             // 
             // lblLocation
@@ -190,9 +194,9 @@
             // 
             // tbxControl
             // 
-            this.tbxControl.Location = new System.Drawing.Point(168, 433);
+            this.tbxControl.Location = new System.Drawing.Point(120, 433);
             this.tbxControl.Name = "tbxControl";
-            this.tbxControl.Size = new System.Drawing.Size(100, 21);
+            this.tbxControl.Size = new System.Drawing.Size(148, 21);
             this.tbxControl.TabIndex = 15;
             // 
             // lblControl
@@ -206,9 +210,9 @@
             // 
             // tbxLandOwner
             // 
-            this.tbxLandOwner.Location = new System.Drawing.Point(168, 478);
+            this.tbxLandOwner.Location = new System.Drawing.Point(120, 478);
             this.tbxLandOwner.Name = "tbxLandOwner";
-            this.tbxLandOwner.Size = new System.Drawing.Size(100, 21);
+            this.tbxLandOwner.Size = new System.Drawing.Size(148, 21);
             this.tbxLandOwner.TabIndex = 17;
             // 
             // lblLandOwner
@@ -224,7 +228,7 @@
             // 
             this.tbxArea.Location = new System.Drawing.Point(139, 39);
             this.tbxArea.Name = "tbxArea";
-            this.tbxArea.Size = new System.Drawing.Size(100, 21);
+            this.tbxArea.Size = new System.Drawing.Size(171, 21);
             this.tbxArea.TabIndex = 19;
             // 
             // lblAera
@@ -240,7 +244,7 @@
             // 
             this.tbxLlegalArea.Location = new System.Drawing.Point(139, 85);
             this.tbxLlegalArea.Name = "tbxLlegalArea";
-            this.tbxLlegalArea.Size = new System.Drawing.Size(100, 21);
+            this.tbxLlegalArea.Size = new System.Drawing.Size(171, 21);
             this.tbxLlegalArea.TabIndex = 21;
             // 
             // lblUnit
@@ -256,7 +260,7 @@
             // 
             this.tbxIllegaUnit.Location = new System.Drawing.Point(139, 174);
             this.tbxIllegaUnit.Name = "tbxIllegaUnit";
-            this.tbxIllegaUnit.Size = new System.Drawing.Size(100, 21);
+            this.tbxIllegaUnit.Size = new System.Drawing.Size(64, 21);
             this.tbxIllegaUnit.TabIndex = 23;
             // 
             // label12
@@ -270,6 +274,7 @@
             // 
             // tbxConfiscateFloorArea
             // 
+            this.tbxConfiscateFloorArea.Enabled = false;
             this.tbxConfiscateFloorArea.Location = new System.Drawing.Point(139, 14);
             this.tbxConfiscateFloorArea.Name = "tbxConfiscateFloorArea";
             this.tbxConfiscateFloorArea.Size = new System.Drawing.Size(100, 21);
@@ -286,6 +291,7 @@
             // 
             // tbxConfiscateArea
             // 
+            this.tbxConfiscateArea.Enabled = false;
             this.tbxConfiscateArea.Location = new System.Drawing.Point(139, 56);
             this.tbxConfiscateArea.Name = "tbxConfiscateArea";
             this.tbxConfiscateArea.Size = new System.Drawing.Size(100, 21);
@@ -302,6 +308,7 @@
             // 
             // tbxConfiscateAreaUnit
             // 
+            this.tbxConfiscateAreaUnit.Enabled = false;
             this.tbxConfiscateAreaUnit.Location = new System.Drawing.Point(139, 102);
             this.tbxConfiscateAreaUnit.Name = "tbxConfiscateAreaUnit";
             this.tbxConfiscateAreaUnit.Size = new System.Drawing.Size(100, 21);
@@ -318,6 +325,7 @@
             // 
             // tbxConfiscateAreaPrice
             // 
+            this.tbxConfiscateAreaPrice.Enabled = false;
             this.tbxConfiscateAreaPrice.Location = new System.Drawing.Point(139, 144);
             this.tbxConfiscateAreaPrice.Name = "tbxConfiscateAreaPrice";
             this.tbxConfiscateAreaPrice.Size = new System.Drawing.Size(100, 21);
@@ -372,7 +380,7 @@
             // 
             this.tbxIllegaArea.Location = new System.Drawing.Point(139, 129);
             this.tbxIllegaArea.Name = "tbxIllegaArea";
-            this.tbxIllegaArea.Size = new System.Drawing.Size(100, 21);
+            this.tbxIllegaArea.Size = new System.Drawing.Size(64, 21);
             this.tbxIllegaArea.TabIndex = 39;
             // 
             // lblIlegalArea
@@ -388,7 +396,7 @@
             // 
             this.tbxPrice.Location = new System.Drawing.Point(139, 214);
             this.tbxPrice.Name = "tbxPrice";
-            this.tbxPrice.Size = new System.Drawing.Size(100, 21);
+            this.tbxPrice.Size = new System.Drawing.Size(171, 21);
             this.tbxPrice.TabIndex = 41;
             // 
             // lblPrice
@@ -402,6 +410,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lblFarmUnit);
+            this.groupBox1.Controls.Add(this.tbxFarmArea);
+            this.groupBox1.Controls.Add(this.lblFarmArea);
+            this.groupBox1.Controls.Add(this.tbxFarmUnit);
             this.groupBox1.Controls.Add(this.lblAera);
             this.groupBox1.Controls.Add(this.tbxPrice);
             this.groupBox1.Controls.Add(this.tbxArea);
@@ -414,7 +426,7 @@
             this.groupBox1.Controls.Add(this.tbxIllegaUnit);
             this.groupBox1.Location = new System.Drawing.Point(331, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(310, 245);
+            this.groupBox1.Size = new System.Drawing.Size(419, 245);
             this.groupBox1.TabIndex = 42;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "行为处罚：";
@@ -449,9 +461,9 @@
             // 
             // tbxBuildDate
             // 
-            this.tbxBuildDate.Location = new System.Drawing.Point(168, 264);
+            this.tbxBuildDate.Location = new System.Drawing.Point(120, 264);
             this.tbxBuildDate.Name = "tbxBuildDate";
-            this.tbxBuildDate.Size = new System.Drawing.Size(100, 21);
+            this.tbxBuildDate.Size = new System.Drawing.Size(148, 21);
             this.tbxBuildDate.TabIndex = 47;
             // 
             // lblBuildDate
@@ -465,9 +477,9 @@
             // 
             // tbxLayer
             // 
-            this.tbxLayer.Location = new System.Drawing.Point(168, 223);
+            this.tbxLayer.Location = new System.Drawing.Point(108, 223);
             this.tbxLayer.Name = "tbxLayer";
-            this.tbxLayer.Size = new System.Drawing.Size(100, 21);
+            this.tbxLayer.Size = new System.Drawing.Size(160, 21);
             this.tbxLayer.TabIndex = 45;
             // 
             // lblLayer
@@ -478,6 +490,38 @@
             this.lblLayer.Size = new System.Drawing.Size(41, 12);
             this.lblLayer.TabIndex = 44;
             this.lblLayer.Text = "层数：";
+            // 
+            // lblFarmUnit
+            // 
+            this.lblFarmUnit.AutoSize = true;
+            this.lblFarmUnit.Location = new System.Drawing.Point(230, 177);
+            this.lblFarmUnit.Name = "lblFarmUnit";
+            this.lblFarmUnit.Size = new System.Drawing.Size(65, 12);
+            this.lblFarmUnit.TabIndex = 42;
+            this.lblFarmUnit.Text = "耕地单价：";
+            // 
+            // tbxFarmArea
+            // 
+            this.tbxFarmArea.Location = new System.Drawing.Point(313, 131);
+            this.tbxFarmArea.Name = "tbxFarmArea";
+            this.tbxFarmArea.Size = new System.Drawing.Size(64, 21);
+            this.tbxFarmArea.TabIndex = 45;
+            // 
+            // lblFarmArea
+            // 
+            this.lblFarmArea.AutoSize = true;
+            this.lblFarmArea.Location = new System.Drawing.Point(230, 134);
+            this.lblFarmArea.Name = "lblFarmArea";
+            this.lblFarmArea.Size = new System.Drawing.Size(59, 12);
+            this.lblFarmArea.TabIndex = 44;
+            this.lblFarmArea.Text = "耕地面积:";
+            // 
+            // tbxFarmUnit
+            // 
+            this.tbxFarmUnit.Location = new System.Drawing.Point(313, 176);
+            this.tbxFarmUnit.Name = "tbxFarmUnit";
+            this.tbxFarmUnit.Size = new System.Drawing.Size(64, 21);
+            this.tbxFarmUnit.TabIndex = 43;
             // 
             // DataQueryModify
             // 
@@ -513,7 +557,7 @@
             this.Controls.Add(this.tbxID);
             this.Controls.Add(this.lblID);
             this.Name = "DataQueryModify";
-            this.Text = "DataQueryModify";
+            this.Text = "查询修改";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -572,5 +616,9 @@
         private System.Windows.Forms.Label lblBuildDate;
         private System.Windows.Forms.TextBox tbxLayer;
         private System.Windows.Forms.Label lblLayer;
+        private System.Windows.Forms.Label lblFarmUnit;
+        private System.Windows.Forms.TextBox tbxFarmArea;
+        private System.Windows.Forms.Label lblFarmArea;
+        private System.Windows.Forms.TextBox tbxFarmUnit;
     }
 }

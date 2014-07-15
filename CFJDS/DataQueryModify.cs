@@ -42,6 +42,8 @@ namespace CFJDS {
             tbxConfiscateArea.Text = data.ConfiscateArea.ToString();
             tbxConfiscateAreaUnit.Text = data.ConfiscateAreaUnit.ToString();
             tbxConfiscateAreaPrice.Text = data.ConfiscateAreaPrice.ToString();
+            tbxFarmArea.Text = data.FarmArea.ToString();
+            tbxFarmUnit.Text = data.FarmUnit.ToString();
 
         }
 
@@ -83,7 +85,9 @@ namespace CFJDS {
                 sql.Append("没收占地面积= @ConfiscateFloorArea , ");
                 sql.Append("没收建筑面积= @ConfiscateArea , ");
                 sql.Append("没收单价= @ConfiscateAreaUnit , ");
-                sql.Append("没收金额= @ConfiscateAreaPrice ");
+                sql.Append("没收金额= @ConfiscateAreaPrice ,");
+                sql.Append("耕地面积= @FarmArea ,");
+                sql.Append("耕地单价=@FarmUnit ");
                 sql.Append("where ");
                 sql.Append("GUID= @Guid ");
 
@@ -108,7 +112,9 @@ namespace CFJDS {
                     new SQLiteParameter("@ConfiscateArea",data.ConfiscateArea.ToString()),
                     new SQLiteParameter("@ConfiscateAreaUnit",data.ConfiscateAreaUnit.ToString()),
                     new SQLiteParameter("@ConfiscateAreaPrice",data.ConfiscateAreaPrice.ToString()),
-                    new SQLiteParameter("@Guid",data.Guid.ToString())     
+                    new SQLiteParameter("@FarmArea",data.FarmArea.ToString()),
+                    new SQLiteParameter("@FarmUnit",data.FarmUnit.ToString()),
+                    new SQLiteParameter("@Guid",data.Guid)
                  };
                 db.ExecuteNonQuery(sql.ToString(), parameters);
 
@@ -174,12 +180,19 @@ namespace CFJDS {
             data.LegalArea = double.Parse(tbxLlegalArea.Text);
             data.IllegaArea = double.Parse(tbxIllegaArea.Text);
             data.IllegaUnit = Int32.Parse(tbxIllegaUnit.Text);
-            data.Price = double.Parse(tbxPrice.Text);
+            
             data.ConfiscateFloorArea = double.Parse(tbxConfiscateFloorArea.Text);
             data.ConfiscateArea = double.Parse(tbxConfiscateArea.Text);
             data.ConfiscateAreaUnit = Int32.Parse(tbxConfiscateAreaUnit.Text);
             data.ConfiscateAreaPrice = double.Parse(tbxConfiscateAreaPrice.Text);
+            data.FarmArea = double.Parse(tbxFarmArea.Text);
+            data.FarmUnit = Int32.Parse(tbxFarmUnit.Text);
+            //价格计算
+            data.Price = Common.PriceCalculate(data);
+            
         }
+
+        
 
 
     }

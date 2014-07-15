@@ -345,5 +345,23 @@ namespace CFJDS {
             set { _conform = value; }
         }
 
+        private double _farmArea;
+        /// <summary>
+        /// 耕地面积
+        /// </summary>
+        public double FarmArea {
+            get { return _farmArea; }
+            set { _farmArea = value; }
+        }
+
+        private int _farmUnit;
+        /// <summary>
+        /// 耕地单价
+        /// </summary>
+        public int FarmUnit {
+            get { return _farmUnit; }
+            set { _farmUnit = value; }
+        }
+
     }
 }

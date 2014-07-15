@@ -94,6 +94,11 @@ namespace CFJDS {
             pText += "非法占用土地";
             pText += data.IllegaArea.ToString();
             pText += "平方米";
+            if (data.FarmArea > 0) {
+                pText += "，其中耕地面积";
+                pText += data.FarmArea;
+                pText += "平方米";
+            }
             if (data.ConfiscateAreaPrice > 0) {
                 pText += "（其中超土地审批限额";
                 pText += data.ConfiscateFloorArea;
@@ -120,7 +125,13 @@ namespace CFJDS {
                 addTxt(brf);
             }
 
-            pText = "罚款额为非法占用其他土地每平方米";
+            pText = "罚款额为";
+            if (data.FarmArea > 0) {
+                pText += "非法占用耕地每平方米";
+                pText += data.FarmUnit.ToString();
+                pText += "元，";
+            }
+            pText+="非法占用其他土地每平方米";
             pText += data.IllegaUnit.ToString();
             pText += "元，合计人民币" + ecanNum.CmycurD(data.Price.ToString()) + "（￥" + Math.Round(data.Price, 2) + ")。";
             addLine(brf);

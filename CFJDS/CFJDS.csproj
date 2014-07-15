@@ -101,8 +101,8 @@
     <Compile Include="Biult\BiultCFJDS.cs" />
     <Compile Include="Biult\BiultCLJD.cs" />
     <Compile Include="Biult\BiultIndex.cs" />
-    <Compile Include="Common.cs" />
-    <Compile Include="ConfiscateCalculate.cs" />
+    <Compile Include="Common\Common.cs" />
+    <Compile Include="Common\ConfiscateCalculate.cs" />
     <Compile Include="Common\BiultReportForm.cs" />
     <Compile Include="Common\CFSJDal.cs" />
     <Compile Include="CFSJDataSet.Designer.cs">
@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Common\DataCFSJ.cs" />
     <Compile Include="Common\EcanNum.cs" />
+    <Compile Include="Common\DataOperate.cs" />
     <Compile Include="DataQueryModify.cs">
       <SubType>Form</SubType>
     </Compile>

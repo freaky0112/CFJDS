@@ -41,9 +41,9 @@
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.tsmQuit = new System.Windows.Forms.ToolStripMenuItem();
             this.tbxID = new System.Windows.Forms.TextBox();
-            this.label2 = new System.Windows.Forms.Label();
             this.btnQuery = new System.Windows.Forms.Button();
             this.tvwIDs = new System.Windows.Forms.TreeView();
+            this.cbbType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -217,15 +217,6 @@
             this.tbxID.TextChanged += new System.EventHandler(this.tbxID_TextChanged);
             this.tbxID.MouseEnter += new System.EventHandler(this.tbxID_MouseEnter);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(238, 177);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 9;
-            this.label2.Text = "编号：";
-            // 
             // btnQuery
             // 
             this.btnQuery.Location = new System.Drawing.Point(408, 143);
@@ -245,14 +236,27 @@
             this.tvwIDs.TabIndex = 11;
             this.tvwIDs.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwIDs_NodeMouseDoubleClick);
             // 
+            // cbbType
+            // 
+            this.cbbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbbType.FormattingEnabled = true;
+            this.cbbType.Items.AddRange(new object[] {
+            "编号：",
+            "户主：",
+            "土地坐落："});
+            this.cbbType.Location = new System.Drawing.Point(204, 175);
+            this.cbbType.Name = "cbbType";
+            this.cbbType.Size = new System.Drawing.Size(80, 20);
+            this.cbbType.TabIndex = 12;
+            // 
             // BiultForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 544);
+            this.Controls.Add(this.cbbType);
             this.Controls.Add(this.tvwIDs);
             this.Controls.Add(this.btnQuery);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.tbxID);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.label1);
@@ -295,11 +299,11 @@
         private System.Windows.Forms.TextBox tbxID;
         private System.Windows.Forms.ToolStripMenuItem tsmQuit;
         private System.Windows.Forms.ToolStripMenuItem tsmRevertData;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.TreeView tvwIDs;
+        private System.Windows.Forms.ComboBox cbbType;
     }
 }
 

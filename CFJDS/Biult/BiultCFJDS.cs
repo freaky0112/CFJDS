@@ -144,13 +144,25 @@ namespace CFJDS {
             pText += data.Location;
             pText += "非法占用土地" + data.IllegaArea.ToString();
             if (data.ConfiscateAreaPrice > 0) {
+                pText += "平方米";
+                if (data.FarmArea > 0) {
+                    pText += "，其中耕地面积";
+                    pText += data.FarmArea;
+                    pText += "平方米";
+                }
                 pText += "（其中超土地审批限额";
                 pText += data.ConfiscateFloorArea;
                 pText += "平方米），并在该土地上建造建筑物（房屋），其中超出审批限额占用的土地上的建筑物面积为";
                 pText += data.ConfiscateArea;
                 pText += "平方米。经核对青田县";
             } else {
-                pText += "平方米，并在该土地上建造建筑物（房屋）。经核对青田县";
+                pText += "平方米";
+                if (data.FarmArea > 0) {
+                    pText += "，其中耕地面积";
+                    pText += data.FarmArea;
+                    pText += "平方米";
+                }
+                pText += "并在该土地上建造建筑物（房屋）。经核对青田县";
             }
            
             pText += data.Town;
@@ -170,7 +182,13 @@ namespace CFJDS {
                 addTxt(brf);
             }
 
-            pText = "罚款额为非法占用其他土地每平方米";
+            pText = "罚款额为";
+            if (data.FarmArea > 0) {
+                pText += "非法占用耕地每平方米";
+                pText += data.FarmUnit.ToString();
+                pText += "元，";
+            }
+            pText += "非法占用其他土地每平方米";
             pText += data.IllegaUnit.ToString();
             pText += "元，合计人民币" + ecanNum.CmycurD(data.Price.ToString()) + "（￥" + Math.Round(data.Price, 2) + ")。";
             addLine(brf);
