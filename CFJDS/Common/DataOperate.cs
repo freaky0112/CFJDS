@@ -207,6 +207,18 @@ namespace CFJDS {
             };
             return dataList;
         }
+
+        public static void dataDelte(DataCFSJ data,string table) {
+            CFSJDal db = new CFSJDal(Common.strConnection);
+            SQLiteParameter[] pt = new SQLiteParameter[]{
+                new SQLiteParameter("@GUID",data.Guid)
+            };
+            StringBuilder sql = new StringBuilder();
+            sql.Append("delete from ");
+            sql.Append(table);
+            sql.Append(" where GUID = @GUID");
+            db.ExecuteNonQuery(sql.ToString(), pt);
+        }
     }
 
 

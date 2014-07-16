@@ -119,16 +119,16 @@ namespace CFJDS {
                 db.ExecuteNonQuery(sql.ToString(), parameters);
 
                 StringBuilder _sql = new StringBuilder();
-                _sql.Append(@"select count(*) from 鹤城所没收 where GUID='");
-                _sql.Append(data.Guid);
-                _sql.Append(@"'");
-                string i = "a";
-                using (SQLiteDataReader reader = db.ExecuteReader(_sql.ToString(), null)) {
-                    while (reader.Read()) {
-                        i = reader[0].ToString();
-                    }
-                };
-                if (isNotConfiscate && i.Equals("0")) {//须莫收且没有数据
+                //_sql.Append(@"select count(*) from 鹤城所没收 where GUID='");
+                //_sql.Append(data.Guid);
+                //_sql.Append(@"'");
+                //string i = "a";
+                //using (SQLiteDataReader reader = db.ExecuteReader(_sql.ToString(), null)) {
+                //    while (reader.Read()) {
+                //        i = reader[0].ToString();
+                //    }
+                //};
+                if (isNotConfiscate) {//须莫收且没有数据
                     _sql = new StringBuilder();
                     _sql.Append("insert into 鹤城所没收 ");
                     _sql.Append("(GUID) values ");
@@ -137,7 +137,7 @@ namespace CFJDS {
                         new SQLiteParameter("@guid",data.Guid)
                     };
                     db.ExecuteNonQuery(_sql.ToString(), pt);
-                } else if (!isNotConfiscate && !i.Equals("0")) {//不须莫收且有数据
+                } else if (!isNotConfiscate) {//不须莫收且有数据
                     _sql = new StringBuilder();
                     _sql.Append("delete from 鹤城所没收 ");
                     _sql.Append("where GUID = ");
@@ -149,7 +149,9 @@ namespace CFJDS {
                 }
                 MessageBox.Show("数据修改成功");
             } catch (Exception ex) {
-                throw ex;
+                if (!ex.Message.Contains("UNIQUE")) {
+                    throw ex;
+                }
             }
             
         }

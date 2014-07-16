@@ -23,6 +23,7 @@
         /// 使用代码编辑器修改此方法的内容。
         /// </summary>
         private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(BiultForm));
             this.btnGenerate = new System.Windows.Forms.Button();
             this.tbxDataSource = new System.Windows.Forms.TextBox();
@@ -44,8 +45,11 @@
             this.btnQuery = new System.Windows.Forms.Button();
             this.tvwIDs = new System.Windows.Forms.TreeView();
             this.cbbType = new System.Windows.Forms.ComboBox();
+            this.cmsTvw = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
+            this.cmsTvw.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenerate
@@ -229,12 +233,14 @@
             // 
             // tvwIDs
             // 
+            this.tvwIDs.ContextMenuStrip = this.cmsTvw;
             this.tvwIDs.HotTracking = true;
             this.tvwIDs.Location = new System.Drawing.Point(12, 201);
             this.tvwIDs.Name = "tvwIDs";
             this.tvwIDs.Size = new System.Drawing.Size(471, 302);
             this.tvwIDs.TabIndex = 11;
             this.tvwIDs.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwIDs_NodeMouseDoubleClick);
+            this.tvwIDs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvwIDs_MouseDown);
             // 
             // cbbType
             // 
@@ -248,6 +254,20 @@
             this.cbbType.Name = "cbbType";
             this.cbbType.Size = new System.Drawing.Size(80, 20);
             this.cbbType.TabIndex = 12;
+            // 
+            // cmsTvw
+            // 
+            this.cmsTvw.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmDelete});
+            this.cmsTvw.Name = "cmsTvw";
+            this.cmsTvw.Size = new System.Drawing.Size(153, 48);
+            // 
+            // tsmDelete
+            // 
+            this.tsmDelete.Name = "tsmDelete";
+            this.tsmDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmDelete.Text = "删除";
+            this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
             // BiultForm
             // 
@@ -277,6 +297,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.cmsTvw.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -304,6 +325,8 @@
         private System.Windows.Forms.Button btnQuery;
         private System.Windows.Forms.TreeView tvwIDs;
         private System.Windows.Forms.ComboBox cbbType;
+        private System.Windows.Forms.ContextMenuStrip cmsTvw;
+        private System.Windows.Forms.ToolStripMenuItem tsmDelete;
     }
 }
 

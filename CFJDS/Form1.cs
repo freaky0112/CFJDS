@@ -350,6 +350,31 @@ namespace CFJDS {
             }
         }
 
+        private void tvwIDs_MouseDown(object sender, MouseEventArgs e) {
+            if (e.Button == MouseButtons.Right) {
+                Point ClickPoint = new Point(e.X, e.Y);
+                TreeNode CurrentNode = tvwIDs.GetNodeAt(ClickPoint);
+                if (CurrentNode != null) {
+                    CurrentNode.ContextMenuStrip = cmsTvw; 
+                }
+                tvwIDs.SelectedNode = CurrentNode;
+            }
+        }
+
+        private void tsmDelete_Click(object sender, EventArgs e) {
+            try {
+                DataCFSJ data = new DataCFSJ();
+                int index=tvwIDs.SelectedNode.Index;
+                data = (DataCFSJ)dataList[index];
+                dataOperate.dataDelte(data, "鹤城所");
+                dataOperate.dataDelte(data, "鹤城所没收");
+                tvwIDs.SelectedNode.Remove();
+                dataList.RemoveAt(index);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
 
     }
 }

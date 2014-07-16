@@ -155,9 +155,7 @@
     </Compile>
     <None Include="app.config" />
     <None Include="CFJDS_TemporaryKey.pfx" />
-    <None Include="CFSJ.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    <None Include="CFSJ.db" />
     <None Include="CFSJDataSet.xsc">
       <DependentUpon>CFSJDataSet.xsd</DependentUpon>
     </None>
