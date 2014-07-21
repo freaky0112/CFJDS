@@ -181,7 +181,7 @@ namespace CFJDS {
             data.Conform = tbxConform.Text;
             data.LegalArea = double.Parse(tbxLlegalArea.Text);
             data.IllegaArea = double.Parse(tbxIllegaArea.Text);
-            data.IllegaUnit = Int32.Parse(tbxIllegaUnit.Text);
+            data.IllegaUnit = double.Parse(tbxIllegaUnit.Text);
             
             data.ConfiscateFloorArea = double.Parse(tbxConfiscateFloorArea.Text);
             data.ConfiscateArea = double.Parse(tbxConfiscateArea.Text);
