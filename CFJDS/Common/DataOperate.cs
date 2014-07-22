@@ -185,7 +185,7 @@ namespace CFJDS {
                     data.Available = reader[17].ToString();
                     data.LegalArea = double.Parse(reader[18].ToString());
                     data.IllegaArea = double.Parse(reader[20].ToString());
-                    data.IllegaUnit = Int32.Parse(reader[21].ToString());
+                    data.IllegaUnit = double.Parse(reader[21].ToString());
                     //耕地面积
                     if (!string.IsNullOrEmpty(reader[12].ToString())) {
                         data.FarmArea = double.Parse(reader[12].ToString());

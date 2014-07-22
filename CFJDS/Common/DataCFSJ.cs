@@ -100,9 +100,9 @@ namespace CFJDS {
         /// <summary>
         /// 违法单价
         /// </summary>
-        private int _illegaUnit;
+        private double _illegaUnit;
 
-        public int IllegaUnit {
+        public double IllegaUnit {
             get { return _illegaUnit; }
             set { _illegaUnit = value; }
         }
