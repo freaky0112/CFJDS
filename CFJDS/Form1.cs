@@ -156,14 +156,14 @@ namespace CFJDS {
                             data.Area = double.Parse(dr[6].ToString());//实地占地面积
                             data.LegalArea = double.Parse(dr[7].ToString());//合法面积
                             data.IllegaArea = double.Parse(dr[8].ToString());//超出面积
-                            data.IllegaUnit = double.Parse(dr[9].ToString());//单价
+                            data.IllegaUnit = Int32.Parse(dr[9].ToString());//单价
                             data.Price = double.Parse(dr[10].ToString());//处罚金额
                             data.Layer = double.Parse(dr[11].ToString());//建设层数
                             data.Conform = dr[22].ToString();//土地利用总体规划
                             data.Available = dr[21].ToString();//建房资格
                             data.Control = dr[29].ToString();//控制区
                             data.LandOwner = dr[28].ToString();//土地性质
-                            //data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
+                            data.IsnotConfiscate = !string.IsNullOrEmpty(dr[23].ToString());//是否没收
                             //data.IsnotConfiscate = ConfiscateCalculate.isNotConfiscate(data);
                             //data.ConfiscateAreaPrice = double.Parse(dr[25].ToString());//总金额
                             data.Town = cbbTowns.SelectedItem.ToString();//所在乡镇
@@ -195,7 +195,7 @@ namespace CFJDS {
                             }
                         }
                     } catch (Exception ex) {
-                        throw new Exception(data.Name.ToString());
+                        throw ex;
                     }
 
                 }
@@ -264,12 +264,9 @@ namespace CFJDS {
         }
 
         private void insertData() {
-            try {
-                foreach (DataCFSJ data in dataList) {
-                    dataOperate.dataInsert(data);
-                }
-            } catch (Exception ex) {
-                throw ex;
+
+            foreach (DataCFSJ data in dataList) {
+                dataOperate.dataInsert(data);
             }
         }
         
