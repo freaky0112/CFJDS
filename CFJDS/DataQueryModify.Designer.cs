@@ -64,16 +64,16 @@
             this.tbxPrice = new System.Windows.Forms.TextBox();
             this.lblPrice = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lblFarmUnit = new System.Windows.Forms.Label();
+            this.tbxFarmArea = new System.Windows.Forms.TextBox();
+            this.lblFarmArea = new System.Windows.Forms.Label();
+            this.tbxFarmUnit = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.tbxBuildDate = new System.Windows.Forms.TextBox();
             this.lblBuildDate = new System.Windows.Forms.Label();
             this.tbxLayer = new System.Windows.Forms.TextBox();
             this.lblLayer = new System.Windows.Forms.Label();
-            this.lblFarmUnit = new System.Windows.Forms.Label();
-            this.tbxFarmArea = new System.Windows.Forms.TextBox();
-            this.lblFarmArea = new System.Windows.Forms.Label();
-            this.tbxFarmUnit = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -230,6 +230,7 @@
             this.tbxArea.Name = "tbxArea";
             this.tbxArea.Size = new System.Drawing.Size(171, 21);
             this.tbxArea.TabIndex = 19;
+            this.tbxArea.TextChanged += new System.EventHandler(this.tbxArea_TextChanged);
             // 
             // lblAera
             // 
@@ -246,6 +247,7 @@
             this.tbxLlegalArea.Name = "tbxLlegalArea";
             this.tbxLlegalArea.Size = new System.Drawing.Size(171, 21);
             this.tbxLlegalArea.TabIndex = 21;
+            this.tbxLlegalArea.TextChanged += new System.EventHandler(this.tbxLlegalArea_TextChanged);
             // 
             // lblUnit
             // 
@@ -262,6 +264,7 @@
             this.tbxIllegaUnit.Name = "tbxIllegaUnit";
             this.tbxIllegaUnit.Size = new System.Drawing.Size(64, 21);
             this.tbxIllegaUnit.TabIndex = 23;
+            this.tbxIllegaUnit.TextChanged += new System.EventHandler(this.tbxIllegaUnit_TextChanged);
             // 
             // label12
             // 
@@ -431,6 +434,40 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "行为处罚：";
             // 
+            // lblFarmUnit
+            // 
+            this.lblFarmUnit.AutoSize = true;
+            this.lblFarmUnit.Location = new System.Drawing.Point(230, 177);
+            this.lblFarmUnit.Name = "lblFarmUnit";
+            this.lblFarmUnit.Size = new System.Drawing.Size(65, 12);
+            this.lblFarmUnit.TabIndex = 42;
+            this.lblFarmUnit.Text = "耕地单价：";
+            // 
+            // tbxFarmArea
+            // 
+            this.tbxFarmArea.Location = new System.Drawing.Point(313, 131);
+            this.tbxFarmArea.Name = "tbxFarmArea";
+            this.tbxFarmArea.Size = new System.Drawing.Size(64, 21);
+            this.tbxFarmArea.TabIndex = 45;
+            this.tbxFarmArea.TextChanged += new System.EventHandler(this.tbxFarmArea_TextChanged);
+            // 
+            // lblFarmArea
+            // 
+            this.lblFarmArea.AutoSize = true;
+            this.lblFarmArea.Location = new System.Drawing.Point(230, 134);
+            this.lblFarmArea.Name = "lblFarmArea";
+            this.lblFarmArea.Size = new System.Drawing.Size(59, 12);
+            this.lblFarmArea.TabIndex = 44;
+            this.lblFarmArea.Text = "耕地面积:";
+            // 
+            // tbxFarmUnit
+            // 
+            this.tbxFarmUnit.Location = new System.Drawing.Point(313, 176);
+            this.tbxFarmUnit.Name = "tbxFarmUnit";
+            this.tbxFarmUnit.Size = new System.Drawing.Size(64, 21);
+            this.tbxFarmUnit.TabIndex = 43;
+            this.tbxFarmUnit.TextChanged += new System.EventHandler(this.tbxFarmUnit_TextChanged);
+            // 
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.btnCalculate);
@@ -490,38 +527,6 @@
             this.lblLayer.Size = new System.Drawing.Size(41, 12);
             this.lblLayer.TabIndex = 44;
             this.lblLayer.Text = "层数：";
-            // 
-            // lblFarmUnit
-            // 
-            this.lblFarmUnit.AutoSize = true;
-            this.lblFarmUnit.Location = new System.Drawing.Point(230, 177);
-            this.lblFarmUnit.Name = "lblFarmUnit";
-            this.lblFarmUnit.Size = new System.Drawing.Size(65, 12);
-            this.lblFarmUnit.TabIndex = 42;
-            this.lblFarmUnit.Text = "耕地单价：";
-            // 
-            // tbxFarmArea
-            // 
-            this.tbxFarmArea.Location = new System.Drawing.Point(313, 131);
-            this.tbxFarmArea.Name = "tbxFarmArea";
-            this.tbxFarmArea.Size = new System.Drawing.Size(64, 21);
-            this.tbxFarmArea.TabIndex = 45;
-            // 
-            // lblFarmArea
-            // 
-            this.lblFarmArea.AutoSize = true;
-            this.lblFarmArea.Location = new System.Drawing.Point(230, 134);
-            this.lblFarmArea.Name = "lblFarmArea";
-            this.lblFarmArea.Size = new System.Drawing.Size(59, 12);
-            this.lblFarmArea.TabIndex = 44;
-            this.lblFarmArea.Text = "耕地面积:";
-            // 
-            // tbxFarmUnit
-            // 
-            this.tbxFarmUnit.Location = new System.Drawing.Point(313, 176);
-            this.tbxFarmUnit.Name = "tbxFarmUnit";
-            this.tbxFarmUnit.Size = new System.Drawing.Size(64, 21);
-            this.tbxFarmUnit.TabIndex = 43;
             // 
             // DataQueryModify
             // 

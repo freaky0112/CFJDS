@@ -13,6 +13,7 @@ namespace CFJDS {
             InitializeComponent();
             data = OriginData;
             initializData(data);
+            initialized= true;
         }
         DataCFSJ data = new DataCFSJ();
 
@@ -20,35 +21,41 @@ namespace CFJDS {
             this.Close();
         }
 
+        private bool initialized = false;
+
         private void initializData(DataCFSJ data) {
-            tbxID.Text = "A" + String.Format("{0:0000}", data.ID);
-            tbxName.Text = data.Name.ToString();
-            tbxCardID.Text = data.CardID.ToString();
-            tbxTown.Text = data.Town.ToString();
-            tbxAccounts.Text = data.Accounts.ToString();
-            tbxLocation.Text = data.Location.ToString();
-            tbxControl.Text = data.Control.ToString();
-            tbxLandOwner.Text = data.LandOwner.ToString();
-            tbxArea.Text = data.Area.ToString();
-            tbxLayer.Text = data.Layer.ToString();
-            tbxBuildDate.Text = data.BuildDate.ToString();
-            tbxConform.Text = data.Conform.ToString();
-            //tbxAvailable.Text = data.Available.ToString();
-            tbxLlegalArea.Text = data.LegalArea.ToString();
-            tbxIllegaArea.Text = data.IllegaArea.ToString();
-            tbxIllegaUnit.Text = data.IllegaUnit.ToString();
-            tbxPrice.Text = data.Price.ToString();
-            tbxConfiscateFloorArea.Text = data.ConfiscateFloorArea.ToString();
-            tbxConfiscateArea.Text = data.ConfiscateArea.ToString();
-            tbxConfiscateAreaUnit.Text = data.ConfiscateAreaUnit.ToString();
-            tbxConfiscateAreaPrice.Text = data.ConfiscateAreaPrice.ToString();
-            tbxFarmArea.Text = data.FarmArea.ToString();
-            tbxFarmUnit.Text = data.FarmUnit.ToString();
+            try {
+                tbxID.Text = "A" + String.Format("{0:0000}", data.ID);
+                tbxName.Text = data.Name.ToString();
+                tbxCardID.Text = data.CardID.ToString();
+                tbxTown.Text = data.Town.ToString();
+                tbxAccounts.Text = data.Accounts.ToString();
+                tbxLocation.Text = data.Location.ToString();
+                tbxControl.Text = data.Control.ToString();
+                tbxLandOwner.Text = data.LandOwner.ToString();
+                tbxArea.Text = data.Area.ToString();
+                tbxLayer.Text = data.Layer.ToString();
+                tbxBuildDate.Text = data.BuildDate.ToString();
+                tbxConform.Text = data.Conform.ToString();
+                //tbxAvailable.Text = data.Available.ToString();
+                tbxLlegalArea.Text = data.LegalArea.ToString();
+                tbxIllegaArea.Text = data.IllegaArea.ToString();
+                tbxIllegaUnit.Text = data.IllegaUnit.ToString();
+                tbxPrice.Text = data.Price.ToString();
+                tbxConfiscateFloorArea.Text = data.ConfiscateFloorArea.ToString();
+                tbxConfiscateArea.Text = data.ConfiscateArea.ToString();
+                tbxConfiscateAreaUnit.Text = data.ConfiscateAreaUnit.ToString();
+                tbxConfiscateAreaPrice.Text = data.ConfiscateAreaPrice.ToString();
+                tbxFarmArea.Text = data.FarmArea.ToString();
+                tbxFarmUnit.Text = data.FarmUnit.ToString();
+            } catch (Exception ex) {
+                throw ex;
+            }
 
         }
 
         private void btnCalculate_Click(object sender, EventArgs e) {
-            assigment();
+            assignment();
             data = ConfiscateCalculate.getConfiscateData(data);
             tbxConfiscateFloorArea.Text = data.ConfiscateFloorArea.ToString();
             tbxConfiscateArea.Text = data.ConfiscateArea.ToString();
@@ -60,9 +67,6 @@ namespace CFJDS {
         /// </summary>
         private void modifyData(bool isNotConfiscate) {
             CFSJDal db = new CFSJDal(Common.strConnection);
-
-
-
             try {
                 StringBuilder sql = new StringBuilder();
                 sql.Append("update 鹤城所 set ");
@@ -147,17 +151,18 @@ namespace CFJDS {
                     };
                     db.ExecuteNonQuery(_sql.ToString(), pt);
                 }
-                MessageBox.Show("数据修改成功");
+
             } catch (Exception ex) {
                 if (!ex.Message.Contains("UNIQUE")) {
                     throw ex;
                 }
-            }
-            
+            } finally {
+                MessageBox.Show("数据修改成功");
+            }            
         }
 
         private void btnModify_Click(object sender, EventArgs e) {
-            assigment();
+            assignment();
             try {
                 modifyData(data.ConfiscateAreaPrice > 0);
             } catch (Exception ex) {
@@ -166,8 +171,8 @@ namespace CFJDS {
                 this.Close();
            
         }
-
-        private void assigment() {
+        #region 赋值
+        private void assignment() {
             data.Name = tbxName.Text;
             data.CardID = tbxCardID.Text;
             data.Town = tbxTown.Text;
@@ -180,7 +185,7 @@ namespace CFJDS {
             data.BuildDate = Int32.Parse(tbxBuildDate.Text);
             data.Conform = tbxConform.Text;
             data.LegalArea = double.Parse(tbxLlegalArea.Text);
-            data.IllegaArea = double.Parse(tbxIllegaArea.Text);
+            //data.IllegaArea = double.Parse(tbxIllegaArea.Text);
             data.IllegaUnit = double.Parse(tbxIllegaUnit.Text);
             
             data.ConfiscateFloorArea = double.Parse(tbxConfiscateFloorArea.Text);
@@ -190,11 +195,72 @@ namespace CFJDS {
             data.FarmArea = double.Parse(tbxFarmArea.Text);
             data.FarmUnit = Int32.Parse(tbxFarmUnit.Text);
             //价格计算
-            data.Price = Common.PriceCalculate(data);
-            
+            data = Common.PriceCalculate(data);
+
+        }
+        #endregion
+
+        #region 数值变化显示
+        private void reassignment() {
+            tbxIllegaArea.Text = data.IllegaArea.ToString();
+            tbxPrice.Text = data.Price.ToString();
+        }
+        #endregion
+
+        private void tbxLlegalArea_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxLlegalArea.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxLlegalArea.Text = "0";
+                }
+                assignment();
+                reassignment();
+            }
         }
 
-        
+        private void tbxArea_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxArea.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxArea.Text = "0";
+                }
+                assignment();
+                reassignment();
+            }
+        }
+
+        private void tbxIllegaUnit_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxIllegaUnit.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxIllegaUnit.Text = "0";
+                }
+                assignment();
+                reassignment();
+            }
+        }
+
+        private void tbxFarmArea_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxFarmArea.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxFarmArea.Text = "0";
+                }
+                assignment();
+                reassignment();
+            }
+        }
+
+        private void tbxFarmUnit_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxFarmUnit.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxFarmUnit.Text = "0";
+                }
+                assignment();
+                reassignment();
+            }
+        }
 
 
     }

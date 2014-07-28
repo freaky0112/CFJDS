@@ -349,7 +349,7 @@ namespace CFJDS {
                 }
                 //FormChoose form = new FormChoose();
             } catch (Exception ex) {
-                //throw ex;
+                throw ex;
             }
         }
 

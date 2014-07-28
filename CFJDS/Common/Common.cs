@@ -21,11 +21,13 @@ namespace CFJDS {
             return r.IsMatch(strNumber);
         }
 
-        public static double PriceCalculate(DataCFSJ data) {
+        public static DataCFSJ PriceCalculate(DataCFSJ data) {
             double price;
+            //超建面积等于占地面积减去合法面积
+            data.IllegaArea = data.Area - data.LegalArea;
             //超建面积减去耕地面积乘以单价，加上耕地面积乘以耕地单价
-            price = (data.IllegaArea - data.FarmArea) * data.IllegaUnit + data.FarmArea * data.FarmUnit;
-            return price;
+            data.Price = (data.IllegaArea - data.FarmArea) * data.IllegaUnit + data.FarmArea * data.FarmUnit;
+            return data;
         }
     }
 }

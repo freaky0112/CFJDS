@@ -92,7 +92,10 @@ namespace CFJDS {
         private static int getQuotaArea(DataCFSJ data) {
             int quotaArea = 0;
             foreach (string account in data.Accounts.Split('+')) {
-                int member = Int32.Parse(account);
+                int member = 0;
+                if (!string.IsNullOrEmpty(account)) {              
+                    member = Int32.Parse(account);
+                }
                 if (data.Control.Equals("四级")) {
                     if (member <= 3) {//四级控制区人数1-3为90平方米
                         quotaArea += 90;
