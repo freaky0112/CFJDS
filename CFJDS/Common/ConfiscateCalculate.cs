@@ -53,7 +53,6 @@ namespace CFJDS {
             switch (timeandowner) {
                 case "99年以前国有":
                     return getConfiscateFloorArea(data) > 20;
-                    break;
                 case "99年以后国有":
                     return getConfiscateFloorArea(data) > 10;
                 case "99年以前集体":
@@ -70,7 +69,13 @@ namespace CFJDS {
         /// <param name="data"></param>
         /// <returns></returns>
         private static double getConfiscateArea(DataCFSJ data) {
-            double confiscateArea = data.ConfiscateFloorArea * data.Layer;
+            double confiscateArea = new double();
+            if (data.Layer <= 7) {
+                //高度小于7层时
+                confiscateArea = data.ConfiscateFloorArea * data.Layer;
+            } else {
+                confiscateArea = data.ConfiscateFloorArea * 7;
+            }
             return confiscateArea;
         }
 
@@ -104,7 +109,7 @@ namespace CFJDS {
                     } else {//四级控制区人数4-5为90平方米
                         quotaArea += 100;
                     }
-                } else {
+                } else {//其余均为90平方米
                     quotaArea += 90;
                 }
             }

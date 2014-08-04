@@ -22,3 +22,13 @@ E:\workspace\CFJDS\CFJDS\bin\x86\Release\SQLite.Designer.xml
 E:\workspace\CFJDS\CFJDS\bin\x86\Release\System.Data.SQLite.xml
 E:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.FormChoose.resources
 E:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.DataQueryModify.resources
+D:\workspace\CFJDS\CFJDS\bin\x86\Release\CFJDS.exe.config
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.csproj.ResolveComReference.cache
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.exe
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.pdb
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.csprojResolveAssemblyReference.cache
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.DataQueryModify.resources
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.BiultForm.resources
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.FormChoose.resources
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.Properties.Resources.resources
+D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.csproj.GenerateResource.Cache
