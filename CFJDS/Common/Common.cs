@@ -22,7 +22,7 @@ namespace CFJDS {
         }
 
         public static DataCFSJ PriceCalculate(DataCFSJ data) {
-            double price;
+            //double price;
             //超建面积等于占地面积减去合法面积
             data.IllegaArea = data.Area - data.LegalArea;
             //超建面积减去耕地面积乘以单价，加上耕地面积乘以耕地单价

@@ -196,6 +196,9 @@ namespace CFJDS {
                     data.ConfiscateArea = double.Parse(reader[25].ToString());
                     data.ConfiscateAreaUnit = Int32.Parse(reader[26].ToString());
                     data.ConfiscateAreaPrice = double.Parse(reader[27].ToString());
+                    if (!string.IsNullOrEmpty(reader[28].ToString())){
+                        data.Signed = (Boolean)reader[28];
+                    }
                     data.Guid = reader[29].ToString();
                     data.CardIDs = data.CardID.Split('、');
                     if (!string.IsNullOrEmpty(reader[30].ToString())) {
@@ -218,6 +221,29 @@ namespace CFJDS {
             sql.Append(table);
             sql.Append(" where GUID = @GUID");
             db.ExecuteNonQuery(sql.ToString(), pt);
+        }
+
+        public static void dataSigned(DataCFSJ data) {
+            try {
+                data.Signed = true;
+                CFSJDal db = new CFSJDal(Common.strConnection);
+                int Signed = 0;
+                if (data.Signed) {
+                    Signed = 1;
+                }
+                SQLiteParameter[] pt = new SQLiteParameter[]{
+                new SQLiteParameter("@GUID",data.Guid),
+                new SQLiteParameter("@Signed",data.Signed)
+            };
+                StringBuilder sql = new StringBuilder();
+                sql.Append("update 鹤城所 set ");
+                sql.Append("是否已处罚=@Signed  ");
+                sql.Append("where ");
+                sql.Append("GUID= @Guid ");
+                db.ExecuteNonQuery(sql.ToString(), pt);
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
     }
 

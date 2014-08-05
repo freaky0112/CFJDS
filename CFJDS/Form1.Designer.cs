@@ -44,9 +44,10 @@
             this.tbxID = new System.Windows.Forms.TextBox();
             this.btnQuery = new System.Windows.Forms.Button();
             this.tvwIDs = new System.Windows.Forms.TreeView();
-            this.cbbType = new System.Windows.Forms.ComboBox();
             this.cmsTvw = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbbType = new System.Windows.Forms.ComboBox();
+            this.tsmSigned = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.cmsTvw.SuspendLayout();
@@ -157,7 +158,7 @@
             this.文件ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(493, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(493, 25);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -171,44 +172,44 @@
             this.toolStripSeparator2,
             this.tsmQuit});
             this.文件ToolStripMenuItem.Name = "文件ToolStripMenuItem";
-            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.文件ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
             this.文件ToolStripMenuItem.Text = "文件";
             // 
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(146, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.打开ToolStripMenuItem.Text = "打开";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.tbxDataSource_DoubleClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
             // 
             // tsmSaveData
             // 
             this.tsmSaveData.Name = "tsmSaveData";
-            this.tsmSaveData.Size = new System.Drawing.Size(146, 22);
+            this.tsmSaveData.Size = new System.Drawing.Size(148, 22);
             this.tsmSaveData.Text = "保存导入数据";
             this.tsmSaveData.Click += new System.EventHandler(this.tsmSaveData_Click);
             // 
             // tsmRevertData
             // 
             this.tsmRevertData.Name = "tsmRevertData";
-            this.tsmRevertData.Size = new System.Drawing.Size(146, 22);
+            this.tsmRevertData.Size = new System.Drawing.Size(148, 22);
             this.tsmRevertData.Text = "还原数据";
             this.tsmRevertData.Click += new System.EventHandler(this.tsmRevertData_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(143, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
             // 
             // tsmQuit
             // 
             this.tsmQuit.Name = "tsmQuit";
-            this.tsmQuit.Size = new System.Drawing.Size(146, 22);
+            this.tsmQuit.Size = new System.Drawing.Size(148, 22);
             this.tsmQuit.Text = "退出";
             this.tsmQuit.Click += new System.EventHandler(this.tsmQuit_Click);
             // 
@@ -242,6 +243,21 @@
             this.tvwIDs.NodeMouseDoubleClick += new System.Windows.Forms.TreeNodeMouseClickEventHandler(this.tvwIDs_NodeMouseDoubleClick);
             this.tvwIDs.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tvwIDs_MouseDown);
             // 
+            // cmsTvw
+            // 
+            this.cmsTvw.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmDelete,
+            this.tsmSigned});
+            this.cmsTvw.Name = "cmsTvw";
+            this.cmsTvw.Size = new System.Drawing.Size(137, 48);
+            // 
+            // tsmDelete
+            // 
+            this.tsmDelete.Name = "tsmDelete";
+            this.tsmDelete.Size = new System.Drawing.Size(136, 22);
+            this.tsmDelete.Text = "删除";
+            this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
+            // 
             // cbbType
             // 
             this.cbbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -255,22 +271,16 @@
             this.cbbType.Size = new System.Drawing.Size(80, 20);
             this.cbbType.TabIndex = 12;
             // 
-            // cmsTvw
+            // tsmSigned
             // 
-            this.cmsTvw.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tsmDelete});
-            this.cmsTvw.Name = "cmsTvw";
-            this.cmsTvw.Size = new System.Drawing.Size(153, 48);
-            // 
-            // tsmDelete
-            // 
-            this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(152, 22);
-            this.tsmDelete.Text = "删除";
-            this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
+            this.tsmSigned.Name = "tsmSigned";
+            this.tsmSigned.Size = new System.Drawing.Size(136, 22);
+            this.tsmSigned.Text = "标记已处罚";
+            this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
             // 
             // BiultForm
             // 
+            this.AcceptButton = this.btnQuery;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 544);
@@ -327,6 +337,7 @@
         private System.Windows.Forms.ComboBox cbbType;
         private System.Windows.Forms.ContextMenuStrip cmsTvw;
         private System.Windows.Forms.ToolStripMenuItem tsmDelete;
+        private System.Windows.Forms.ToolStripMenuItem tsmSigned;
     }
 }
 

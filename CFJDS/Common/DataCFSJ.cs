@@ -363,5 +363,15 @@ namespace CFJDS {
             set { _farmUnit = value; }
         }
 
+        private Boolean _signed;
+        /// <summary>
+        /// 是否已处罚
+        /// </summary>
+        public Boolean Signed
+        {
+            get { return _signed; }
+            set { _signed = value; }
+        }
+
     }
 }

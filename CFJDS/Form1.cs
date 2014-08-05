@@ -331,7 +331,9 @@ namespace CFJDS {
             foreach (DataCFSJ data in dataList) {
                 TreeNode tn = new TreeNode();
                 tn.Text = code+String.Format("{0:0000}", data.ID)+":"+data.Name+";"+data.Location;
-                
+                if (data.Signed) {
+                    tn.BackColor = Color.Red;
+                }
                 //lsi.SubItems.Add(data.ID.ToString());
                 tvwIDs.Nodes.Add(tn);
             }
@@ -373,6 +375,20 @@ namespace CFJDS {
                 dataOperate.dataDelte(data, "鹤城所没收");
                 tvwIDs.SelectedNode.Remove();
                 dataList.RemoveAt(index);
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+
+        private void tsmSigned_Click(object sender, EventArgs e)
+        {
+            try {
+
+                DataCFSJ data = new DataCFSJ();
+                int index = tvwIDs.SelectedNode.Index;
+                data = (DataCFSJ)dataList[index];
+                dataOperate.dataSigned(data);
+                tvwIDs.SelectedNode.BackColor = Color.Red;
             } catch (Exception ex) {
                 throw ex;
             }
