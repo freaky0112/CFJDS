@@ -44,3 +44,5 @@ D:\workspace\CFJDS\CFJDS\bin\x86\Release\Office.dll
 D:\workspace\CFJDS\CFJDS\bin\x86\Release\Microsoft.Office.Interop.Word.dll
 D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.exe.manifest
 D:\workspace\CFJDS\CFJDS\obj\x86\Release\CFJDS.application
+D:\workspace\CFJDS\CFJDS\bin\x86\Release\SenseTreeView.dll
+D:\workspace\CFJDS\CFJDS\bin\x86\Release\SenseTreeView.pdb

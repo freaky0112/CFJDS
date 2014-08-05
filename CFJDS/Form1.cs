@@ -332,10 +332,13 @@ namespace CFJDS {
                 TreeNode tn = new TreeNode();
                 tn.Text = code+String.Format("{0:0000}", data.ID)+":"+data.Name+";"+data.Location;
                 if (data.Signed) {
+                    
                     tn.BackColor = Color.Red;
                 }
                 //lsi.SubItems.Add(data.ID.ToString());
                 tvwIDs.Nodes.Add(tn);
+
+                //stvIDs.Nodes.Add(tn);
             }
         }
 

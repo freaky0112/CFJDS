@@ -79,7 +79,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>XANSEkVbPtC3qDhYxcmNyVlOeOk=</dsig:DigestValue>
+        <dsig:DigestValue>pQK2yCKU02YIX/ZMPzwfKUDz3BI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -104,6 +104,18 @@
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
         <dsig:DigestValue>OwdrDv1tXoZA3lTVLxWYfvNMf7s=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="SenseTreeView.dll" size="8192">
+      <assemblyIdentity name="SenseTreeView" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>rBhf5Fh3D25ZS/gxOABky6AN8S8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

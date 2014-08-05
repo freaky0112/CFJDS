@@ -220,6 +220,12 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SenseTreeView\SenseTreeView.csproj">
+      <Project>{1c772667-8af8-4656-9781-b69fd3c05331}</Project>
+      <Name>SenseTreeView</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

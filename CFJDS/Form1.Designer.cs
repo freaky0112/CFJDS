@@ -46,8 +46,8 @@
             this.tvwIDs = new System.Windows.Forms.TreeView();
             this.cmsTvw = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.cbbType = new System.Windows.Forms.ComboBox();
             this.tsmSigned = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbbType = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.cmsTvw.SuspendLayout();
@@ -158,7 +158,7 @@
             this.文件ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(493, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(492, 25);
             this.menuStrip1.TabIndex = 7;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -258,6 +258,13 @@
             this.tsmDelete.Text = "删除";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
+            // tsmSigned
+            // 
+            this.tsmSigned.Name = "tsmSigned";
+            this.tsmSigned.Size = new System.Drawing.Size(136, 22);
+            this.tsmSigned.Text = "标记已处罚";
+            this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
+            // 
             // cbbType
             // 
             this.cbbType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -271,19 +278,12 @@
             this.cbbType.Size = new System.Drawing.Size(80, 20);
             this.cbbType.TabIndex = 12;
             // 
-            // tsmSigned
-            // 
-            this.tsmSigned.Name = "tsmSigned";
-            this.tsmSigned.Size = new System.Drawing.Size(136, 22);
-            this.tsmSigned.Text = "标记已处罚";
-            this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
-            // 
             // BiultForm
             // 
             this.AcceptButton = this.btnQuery;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(493, 544);
+            this.ClientSize = new System.Drawing.Size(492, 544);
             this.Controls.Add(this.cbbType);
             this.Controls.Add(this.tvwIDs);
             this.Controls.Add(this.btnQuery);
