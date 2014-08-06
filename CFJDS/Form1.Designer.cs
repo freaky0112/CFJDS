@@ -46,11 +46,15 @@
             this.tvwIDs = new System.Windows.Forms.TreeView();
             this.cmsTvw = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
-            this.cbbType = new System.Windows.Forms.ComboBox();
             this.tsmSigned = new System.Windows.Forms.ToolStripMenuItem();
+            this.cbbType = new System.Windows.Forms.ComboBox();
+            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.tssState = new System.Windows.Forms.ToolStripStatusLabel();
+            this.tsmUnsigned = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.cmsTvw.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnGenerate
@@ -247,16 +251,24 @@
             // 
             this.cmsTvw.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmDelete,
-            this.tsmSigned});
+            this.tsmSigned,
+            this.tsmUnsigned});
             this.cmsTvw.Name = "cmsTvw";
-            this.cmsTvw.Size = new System.Drawing.Size(137, 48);
+            this.cmsTvw.Size = new System.Drawing.Size(153, 92);
             // 
             // tsmDelete
             // 
             this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(136, 22);
+            this.tsmDelete.Size = new System.Drawing.Size(152, 22);
             this.tsmDelete.Text = "删除";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
+            // 
+            // tsmSigned
+            // 
+            this.tsmSigned.Name = "tsmSigned";
+            this.tsmSigned.Size = new System.Drawing.Size(152, 22);
+            this.tsmSigned.Text = "标记已处罚";
+            this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
             // 
             // cbbType
             // 
@@ -271,12 +283,27 @@
             this.cbbType.Size = new System.Drawing.Size(80, 20);
             this.cbbType.TabIndex = 12;
             // 
-            // tsmSigned
+            // statusStrip1
             // 
-            this.tsmSigned.Name = "tsmSigned";
-            this.tsmSigned.Size = new System.Drawing.Size(136, 22);
-            this.tsmSigned.Text = "标记已处罚";
-            this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tssState});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 522);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(493, 22);
+            this.statusStrip1.TabIndex = 13;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // tssState
+            // 
+            this.tssState.Name = "tssState";
+            this.tssState.Size = new System.Drawing.Size(0, 17);
+            // 
+            // tsmUnsigned
+            // 
+            this.tsmUnsigned.Name = "tsmUnsigned";
+            this.tsmUnsigned.Size = new System.Drawing.Size(152, 22);
+            this.tsmUnsigned.Text = "标记未处罚";
+            this.tsmUnsigned.Click += new System.EventHandler(this.tsmUnsigned_Click);
             // 
             // BiultForm
             // 
@@ -284,6 +311,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(493, 544);
+            this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.cbbType);
             this.Controls.Add(this.tvwIDs);
             this.Controls.Add(this.btnQuery);
@@ -308,6 +336,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.cmsTvw.ResumeLayout(false);
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -338,6 +368,9 @@
         private System.Windows.Forms.ContextMenuStrip cmsTvw;
         private System.Windows.Forms.ToolStripMenuItem tsmDelete;
         private System.Windows.Forms.ToolStripMenuItem tsmSigned;
+        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.ToolStripStatusLabel tssState;
+        private System.Windows.Forms.ToolStripMenuItem tsmUnsigned;
     }
 }
 

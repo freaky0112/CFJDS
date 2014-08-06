@@ -223,14 +223,14 @@ namespace CFJDS {
             db.ExecuteNonQuery(sql.ToString(), pt);
         }
 
-        public static void dataSigned(DataCFSJ data) {
+        public static void dataSigned(DataCFSJ data,Boolean signed) {
             try {
-                data.Signed = true;
+                data.Signed = signed;
                 CFSJDal db = new CFSJDal(Common.strConnection);
-                int Signed = 0;
-                if (data.Signed) {
-                    Signed = 1;
-                }
+                //int Signed = 0;
+                //if (data.Signed) {
+                //    Signed = 1;
+                //}
                 SQLiteParameter[] pt = new SQLiteParameter[]{
                 new SQLiteParameter("@GUID",data.Guid),
                 new SQLiteParameter("@Signed",data.Signed)

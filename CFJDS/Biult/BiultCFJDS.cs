@@ -85,7 +85,7 @@ namespace CFJDS {
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
-                    if (!string.IsNullOrEmpty(data.CardIDs[i])) {
+                    if (data.CardIDs[i].Length == 18) {
                         pText = data.Sex[i];
                     } else {
                         pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineSingle;
@@ -100,7 +100,7 @@ namespace CFJDS {
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
-                    if (!string.IsNullOrEmpty(data.CardIDs[i])) {
+                    if (data.CardIDs[i].Length==18) {
                         pText = data.BirthDate[i].Year + "年" + data.BirthDate[i].Month + "月" + data.BirthDate[i].Day + "日";
                     } else {
                         pText = "    年    月    日";
@@ -116,7 +116,7 @@ namespace CFJDS {
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
-                    if (!string.IsNullOrEmpty(data.CardIDs[i])) {
+                    if (data.CardIDs[i].Length == 18) {
                         pText = data.CardIDs[i];
                     } else {
                         pText = "                            ";

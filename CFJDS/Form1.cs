@@ -56,10 +56,12 @@ namespace CFJDS {
             //dataSet = importExcelToDataSet(dataSouce);//导入数据
             //dataFill();
             try {
-                string ids = tbxID.Text;
-                generate(ids);
+                //string ids = tbxID.Text;
+                generate();
 
-            } catch (Exception ex) { throw ex; }
+            } catch (Exception ex) {
+                throw ex;
+            }
         }
 
         private string getCode(string str) {
@@ -90,46 +92,48 @@ namespace CFJDS {
             return code;
         }
 
-        private void generate(string ids) {
-            
+        private void generate() {
+            string generatePath = System.IO.Directory.GetCurrentDirectory();
+
             try {
                 Thread t1 = new Thread(() => {
-                    foreach (string id in ids.Split('，')) {
-                        readData(id);
-                        int length = dataList.Count;
-                        double count = 0;
+                    //foreach (string id in ids.Split('，')) {
+                    //readData(id);
+                    int length = dataList.Count;
+                    double count = 0;
 
-                        BiultReportForm brf = new BiultReportForm();
-                        //lock (lblSpeed) ;
-                        for (int i = 0; i < dataList.Count; i++) {
-                            DataCFSJ data = (DataCFSJ)dataList[i];
-                            data.Code = code;
-                            if (!Directory.Exists(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town)) {//判断文件目录是否已经存在
-                                Directory.CreateDirectory(System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town);//创建文件夹
-                            }
-                            string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
-                            brf.CreateAWord();//创建文档
-                            bcindex.addIndex(brf, data);//创建目录
-                            bcfgzs.addCFGZS(brf, data);//创建处罚告知书
-                            bcfgzs.addCFGZS(brf, data);//创建处罚告知书
-                            bcfjds.addCFJDS(brf, data);//创建处罚决定书
-                            bcfjds.addCFJDS(brf, data);//创建处罚决定书
-                            if (!data.ConfiscateID.ToString().Equals("0")) {
-                                bccljd.addCLJD(brf, data);//创建处理决定
-                                bccljd.addCLJD(brf, data);//创建处理决定
-                            }
-                            bcjktz.addJKTZ(brf, data);//创建缴款通知单                            
-                            brf.TypeBackspace();
-                            brf.TypeBackspace();
-                            brf.SaveWord(filePath);//保存
-                            count++;
-                            lblSpeed.Text = Math.Round(count * 100 / length, 2) + "%";
-                            prbSpeed.Value = (int)(count * 100 / length);
+                    BiultReportForm brf = new BiultReportForm();
+                    //lock (lblSpeed) ;
+                    for (int i = 0; i < dataList.Count; i++) {
+                        DataCFSJ data = (DataCFSJ)dataList[i];
+                        data.Code = code;
+                        generatePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town;
+                        if (!Directory.Exists(generatePath)) {//判断文件目录是否已经存在
+                            Directory.CreateDirectory(generatePath);//创建文件夹
                         }
-                        lblSpeed.Text = "100%";
-
+                        string filePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town + @"\" + data.ID + data.Name + @".doc";
+                        brf.CreateAWord();//创建文档
+                        bcindex.addIndex(brf, data);//创建目录
+                        bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                        bcfgzs.addCFGZS(brf, data);//创建处罚告知书
+                        bcfjds.addCFJDS(brf, data);//创建处罚决定书
+                        bcfjds.addCFJDS(brf, data);//创建处罚决定书
+                        if (!data.ConfiscateID.ToString().Equals("0")) {
+                            bccljd.addCLJD(brf, data);//创建处理决定
+                            bccljd.addCLJD(brf, data);//创建处理决定
+                        }
+                        bcjktz.addJKTZ(brf, data);//创建缴款通知单                            
+                        brf.TypeBackspace();
+                        brf.TypeBackspace();
+                        brf.SaveWord(filePath);//保存
+                        count++;
+                        lblSpeed.Text = Math.Round(count * 100 / length, 2) + "%";
+                        prbSpeed.Value = (int)(count * 100 / length);
                     }
-                    System.Diagnostics.Process.Start(System.IO.Directory.GetCurrentDirectory());
+                    lblSpeed.Text = "100%";
+
+                    //}
+                    System.Diagnostics.Process.Start(generatePath);
                 });
                 t1.Start();
 
@@ -170,16 +174,16 @@ namespace CFJDS {
                             data.Accounts = dr[3].ToString();//户口人数
                             data.CardIDs = data.CardID.Split('、');
                             if (data.CardIDs.Length != data.Names.Length) {
-                                throw new Exception(data.Name + "，" + data.Location + "处数据有误请核实");
+                                throw new Exception("，" + data.Location + "处数据有误请核实");
                             }
-                            foreach (string cardid in data.CardIDs) {
-                                if (cardid.Length != 18 && cardid.Length != 0) {
-                                    //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
-                                    //Exception ex=new Exception();
-                                    //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
-                                    throw new Exception(data.Name + "，" + data.Location + "处身份证号码数据有误请核实");
-                                }
-                            }
+                            //foreach (string cardid in data.CardIDs) {
+                            //    if (cardid.Length != 18 && cardid.Length != 0) {
+                            //        //MessageBox.Show(data.Name+"，"+data.Location+"处身份证号码数据有误请核实");
+                            //        //Exception ex=new Exception();
+                            //        //ex.Message=data.Name+"，"+data.Location+"处身份证号码数据有误请核实";
+                            //        throw new Exception( "，" + data.Location + "处身份证号码数据有误请核实");
+                            //    }
+                            //}
                             data.Guid = System.Guid.NewGuid().ToString();//GUID生成
                             data = ConfiscateCalculate.getConfiscateData(data);
 
@@ -195,7 +199,7 @@ namespace CFJDS {
                             }
                         }
                     } catch (Exception ex) {
-                        throw new Exception(data.Name.ToString());
+                        throw new Exception(data.Name.ToString()+ex.Message);
                     }
 
                 }
@@ -272,11 +276,11 @@ namespace CFJDS {
                 throw ex;
             }
         }
-        
+
 
         private void readData(string id) {
             string type = cbbType.SelectedItem.ToString();
-            dataList = dataOperate.dataRead(type,id);
+            dataList = dataOperate.dataRead(type, id);
 
 
         }
@@ -328,18 +332,23 @@ namespace CFJDS {
             foreach (string id in ids.Split('，')) {
                 readData(id);
             }
+            int counts=dataList.Count;
+            int singedCounts = 0;
             foreach (DataCFSJ data in dataList) {
                 TreeNode tn = new TreeNode();
-                tn.Text = code+String.Format("{0:0000}", data.ID)+":"+data.Name+";"+data.Location;
+                tn.Text = code + String.Format("{0:0000}", data.ID) + ":" + data.Name + ";" + data.Location;
                 if (data.Signed) {
                     tn.BackColor = Color.Red;
+                    tn.ForeColor = Color.White;
+                    singedCounts++;
                 }
                 //lsi.SubItems.Add(data.ID.ToString());
                 tvwIDs.Nodes.Add(tn);
             }
+            tssState.Text = "总计查询数据" + counts + "户，其中已处罚" + singedCounts + "户";
         }
 
-        
+
 
         private void tvwIDs_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             try {
@@ -360,7 +369,7 @@ namespace CFJDS {
                 Point ClickPoint = new Point(e.X, e.Y);
                 TreeNode CurrentNode = tvwIDs.GetNodeAt(ClickPoint);
                 if (CurrentNode != null) {
-                    CurrentNode.ContextMenuStrip = cmsTvw; 
+                    CurrentNode.ContextMenuStrip = cmsTvw;
                 }
                 tvwIDs.SelectedNode = CurrentNode;
             }
@@ -369,7 +378,7 @@ namespace CFJDS {
         private void tsmDelete_Click(object sender, EventArgs e) {
             try {
                 DataCFSJ data = new DataCFSJ();
-                int index=tvwIDs.SelectedNode.Index;
+                int index = tvwIDs.SelectedNode.Index;
                 data = (DataCFSJ)dataList[index];
                 dataOperate.dataDelte(data, "鹤城所");
                 dataOperate.dataDelte(data, "鹤城所没收");
@@ -379,16 +388,37 @@ namespace CFJDS {
                 throw ex;
             }
         }
-
-        private void tsmSigned_Click(object sender, EventArgs e)
-        {
+        /// <summary>
+        /// 标记已处罚
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmSigned_Click(object sender, EventArgs e) {
             try {
 
                 DataCFSJ data = new DataCFSJ();
                 int index = tvwIDs.SelectedNode.Index;
                 data = (DataCFSJ)dataList[index];
-                dataOperate.dataSigned(data);
+                dataOperate.dataSigned(data,true);
                 tvwIDs.SelectedNode.BackColor = Color.Red;
+                tvwIDs.SelectedNode.ForeColor = Color.White;
+            } catch (Exception ex) {
+                throw ex;
+            }
+        }
+        /// <summary>
+        /// 标记未处罚
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmUnsigned_Click(object sender, EventArgs e) {
+            try {
+                DataCFSJ data = new DataCFSJ();
+                int index = tvwIDs.SelectedNode.Index;
+                data = (DataCFSJ)dataList[index];
+                dataOperate.dataSigned(data, false);
+                tvwIDs.SelectedNode.BackColor = Color.White;
+                tvwIDs.SelectedNode.ForeColor = Color.Black;
             } catch (Exception ex) {
                 throw ex;
             }
