@@ -137,7 +137,8 @@ namespace CFJDS {
                         {  
                             command.Parameters.Add(parameter);  
                         }  
-                    }  
+                    }
+                    connection.Open();
                     return command.ExecuteScalar();  
                 }  
             }  

@@ -71,7 +71,7 @@ namespace CFJDS {
             pText = "";
             pFontName = "仿宋_GB2312";
             pFontSize = 16;
-            pText = "执收单位：";
+            pText = "执收单位：青田县国土资源监察大队";
             addLine(brf);
             pText = "开户银行：";
             addLine(brf);

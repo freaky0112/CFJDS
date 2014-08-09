@@ -4,7 +4,7 @@
   <description asmv2:iconFile="2014080608410343_easyicon_net_128.ico" xmlns="urn:schemas-microsoft-com:asm.v1" />
   <application />
   <entryPoint>
-    <assemblyIdentity name="CFJDS" version="0.0.5331.39345" language="neutral" processorArchitecture="x86" />
+    <assemblyIdentity name="CFJDS" version="0.0.5334.31427" language="neutral" processorArchitecture="x86" />
     <commandLine file="CFJDS.exe" parameters="" />
   </entryPoint>
   <trustInfo>
@@ -73,14 +73,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CFJDS.exe" size="136704">
-      <assemblyIdentity name="CFJDS" version="0.0.5331.39345" language="neutral" processorArchitecture="x86" />
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="CFJDS.exe" size="145920">
+      <assemblyIdentity name="CFJDS" version="0.0.5334.31427" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>MaTR8Avm87UASmU/GNYDpz9LAEQ=</dsig:DigestValue>
+        <dsig:DigestValue>FiJHgndoJQG1t7bLO6IpPFD9IDg=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -121,14 +121,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Data.SQLite.dll" size="983040">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="System.Data.SQLite.dll" size="1118208">
       <assemblyIdentity name="System.Data.SQLite" version="1.0.93.0" publicKeyToken="DB937BC2D44FF139" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>2wpcqQIEl8yLhmzRErvdHw3S1VI=</dsig:DigestValue>
+        <dsig:DigestValue>YWmQJmVu3b1B8baKtipLle3jPuI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

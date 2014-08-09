@@ -54,7 +54,7 @@ namespace CFJDS {
             set { _accounts = value; }
         }
         /// <summary>
-        /// 土地权属
+        /// 土地性质
         /// </summary>
         private string _landOwner;
 

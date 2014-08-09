@@ -112,20 +112,20 @@ namespace CFJDS {
                 }
                 addTxt(brf);//出生年月日
 
-                pText = "，身份证号码：";
+                pText = "";
                 pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineNone;
                 addTxt(brf);
                 if (data.CardIDs != null) {
                     if (data.CardIDs[i].Length == 18) {
-                        pText = data.CardIDs[i];
+                        pText = "，身份证号码：" + data.CardIDs[i];
+                    } else if (data.CardIDs[i].Length == 9) {
+                        pText = "，护照号码：" + data.CardIDs[i];
                     } else {
-                        pText = "                            ";
-
+                        pText = "，身份证号码：                            ";
                         pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineSingle;
                     }
                 } else {
-                    pText = "                            ";
-
+                    pText = "，身份证号码：                            ";
                     pFontUnderline = Microsoft.Office.Interop.Word.WdUnderline.wdUnderlineSingle;
                 }
                 addTxt(brf);//身份证号码

@@ -204,6 +204,7 @@ namespace CFJDS {
         private void reassignment() {
             tbxIllegaArea.Text = data.IllegaArea.ToString();
             tbxPrice.Text = data.Price.ToString();
+            tbxConfiscateAreaPrice.Text = data.ConfiscateAreaPrice.ToString();
         }
         #endregion
 
@@ -258,6 +259,41 @@ namespace CFJDS {
                     tbxFarmUnit.Text = "0";
                 }
                 assignment();
+                reassignment();
+            }
+        }
+
+        private void cbxModifyConfiscate_CheckedChanged(object sender, EventArgs e) {
+            //允许修改没收单价
+            if (cbxModifyConfiscate.Checked) {
+                tbxConfiscateAreaUnit.Enabled = true;
+                tbxConfiscateArea.Enabled = true;
+            } else {
+                tbxConfiscateAreaUnit.Enabled = false;
+                tbxConfiscateArea.Enabled = false;
+            }
+        }
+
+        private void tbxConfiscateAreaUnit_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxConfiscateAreaUnit.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxConfiscateAreaUnit.Text = "0";
+                }
+                assignment();
+                data.ConfiscateAreaPrice = data.ConfiscateArea * data.ConfiscateAreaUnit;
+                reassignment();
+            }
+        }
+
+        private void tbxConfiscateArea_TextChanged(object sender, EventArgs e) {
+            if (initialized) {
+                if (!Common.IsNumber(tbxConfiscateArea.Text)) {
+                    MessageBox.Show("请输入阿拉伯数字", "警告", MessageBoxButtons.OK);
+                    tbxConfiscateArea.Text = "0";
+                }
+                assignment();
+                data.ConfiscateAreaPrice = data.ConfiscateArea * data.ConfiscateAreaUnit;
                 reassignment();
             }
         }

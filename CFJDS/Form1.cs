@@ -25,6 +25,9 @@ namespace CFJDS {
             formChoose.ShowDialog();
             this.Text += " - " + formChoose.cbbCode.SelectedItem;
             code = getCode(formChoose.cbbCode.SelectedItem.ToString());
+            //版本更新
+            //bool isExsit=dataOperate.getTableExist("户主");
+            //update.updateSqlite(formChoose.cbbCode.SelectedItem.ToString());
         }
 
         //string strConnection = System.IO.Directory.GetCurrentDirectory() + @"\CFSJ.db";//数据目录
@@ -199,7 +202,7 @@ namespace CFJDS {
                             }
                         }
                     } catch (Exception ex) {
-                        throw new Exception(data.Name.ToString()+ex.Message);
+                        throw new Exception(data.Name.ToString() + ex.Message);
                     }
 
                 }
@@ -280,7 +283,7 @@ namespace CFJDS {
 
         private void readData(string id) {
             string type = cbbType.SelectedItem.ToString();
-            dataList = dataOperate.dataRead(type, id);
+            dataList = dataOperate.dataRead_Old(type, id);
 
 
         }
@@ -298,7 +301,11 @@ namespace CFJDS {
         }
 
         private void tbxID_TextChanged(object sender, EventArgs e) {
-
+            //string strValue = @"[^[\d\-\,]+$]";
+            //System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(strValue);
+            //if(!r.IsMatch(tbxID.Text)){
+            //    tbxID.Text="";
+            //}
         }
 
         private void tsmQuit_Click(object sender, EventArgs e) {
@@ -332,7 +339,7 @@ namespace CFJDS {
             foreach (string id in ids.Split('，')) {
                 readData(id);
             }
-            int counts=dataList.Count;
+            int counts = dataList.Count;
             int singedCounts = 0;
             foreach (DataCFSJ data in dataList) {
                 TreeNode tn = new TreeNode();
@@ -399,7 +406,7 @@ namespace CFJDS {
                 DataCFSJ data = new DataCFSJ();
                 int index = tvwIDs.SelectedNode.Index;
                 data = (DataCFSJ)dataList[index];
-                dataOperate.dataSigned(data,true);
+                dataOperate.dataSigned(data, true);
                 tvwIDs.SelectedNode.BackColor = Color.Red;
                 tvwIDs.SelectedNode.ForeColor = Color.White;
             } catch (Exception ex) {
@@ -422,6 +429,27 @@ namespace CFJDS {
             } catch (Exception ex) {
                 throw ex;
             }
+        }
+        /// <summary>
+        /// 导出数据
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void tsmExport_Click(object sender, EventArgs e) {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            //设置文件类型  
+            saveFileDialog.Filter = "xls文件|*.xls|xlsx文件|*.xlsx|所有文件|*.*";
+            //保存对话框是否记忆上次打开的目录  
+            saveFileDialog.RestoreDirectory = true;
+            try {
+
+                if (saveFileDialog.ShowDialog() == DialogResult.OK) {
+                    dataOperate.dataExport(dataList, saveFileDialog.FileName.ToString());
+                }
+            } catch (Exception ex) {
+                MessageBox.Show("数据绑定Excel失败!失败原因：" + ex.Message, "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            MessageBox.Show("导出完成");
         }
 
 

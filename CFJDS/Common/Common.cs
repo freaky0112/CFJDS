@@ -6,6 +6,19 @@ namespace CFJDS {
     class Common {
         public static string  strConnection = System.IO.Directory.GetCurrentDirectory() + @"\CFSJ.db";//数据目录
 
+        public static string[] updateFirst = {"户主"};//首次升级，不存在表名户主
+
+        public static string[] Titles = { "处罚编号", "户主", "没收编号", "民族", "身份证号", "乡镇", "户口人数", "土地座落", "控制区", "土地性质", "占地面积", "耕地面积", "层数", "建成年月", "审批面积", "超建面积", "单价", "耕地单价", "金额", "没收占地面积", "没收建筑面积", "没收单价", "没收金额", "是否已处罚" };
+    
+        /// <summary>
+        /// 获取没收表名
+        /// </summary>
+        /// <param name="code">所名</param>
+        /// <returns></returns>
+        public static string getConfiscateTable(string code) {
+            return code + "没收";
+        }
+
         public static bool IsNumber(string strNumber) {
             //看要用哪種規則判斷，自行修改strValue即可
 

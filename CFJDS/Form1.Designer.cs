@@ -47,10 +47,11 @@
             this.cmsTvw = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmDelete = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSigned = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmUnsigned = new System.Windows.Forms.ToolStripMenuItem();
             this.cbbType = new System.Windows.Forms.ComboBox();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.tssState = new System.Windows.Forms.ToolStripStatusLabel();
-            this.tsmUnsigned = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmExport = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.dataSet)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.cmsTvw.SuspendLayout();
@@ -170,6 +171,7 @@
             // 
             this.文件ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.打开ToolStripMenuItem,
+            this.tsmExport,
             this.toolStripSeparator1,
             this.tsmSaveData,
             this.tsmRevertData,
@@ -182,38 +184,38 @@
             // 打开ToolStripMenuItem
             // 
             this.打开ToolStripMenuItem.Name = "打开ToolStripMenuItem";
-            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.打开ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.打开ToolStripMenuItem.Text = "打开";
             this.打开ToolStripMenuItem.Click += new System.EventHandler(this.tbxDataSource_DoubleClick);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmSaveData
             // 
             this.tsmSaveData.Name = "tsmSaveData";
-            this.tsmSaveData.Size = new System.Drawing.Size(148, 22);
+            this.tsmSaveData.Size = new System.Drawing.Size(152, 22);
             this.tsmSaveData.Text = "保存导入数据";
             this.tsmSaveData.Click += new System.EventHandler(this.tsmSaveData_Click);
             // 
             // tsmRevertData
             // 
             this.tsmRevertData.Name = "tsmRevertData";
-            this.tsmRevertData.Size = new System.Drawing.Size(148, 22);
+            this.tsmRevertData.Size = new System.Drawing.Size(152, 22);
             this.tsmRevertData.Text = "还原数据";
             this.tsmRevertData.Click += new System.EventHandler(this.tsmRevertData_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(145, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(149, 6);
             // 
             // tsmQuit
             // 
             this.tsmQuit.Name = "tsmQuit";
-            this.tsmQuit.Size = new System.Drawing.Size(148, 22);
+            this.tsmQuit.Size = new System.Drawing.Size(152, 22);
             this.tsmQuit.Text = "退出";
             this.tsmQuit.Click += new System.EventHandler(this.tsmQuit_Click);
             // 
@@ -254,21 +256,28 @@
             this.tsmSigned,
             this.tsmUnsigned});
             this.cmsTvw.Name = "cmsTvw";
-            this.cmsTvw.Size = new System.Drawing.Size(153, 92);
+            this.cmsTvw.Size = new System.Drawing.Size(137, 70);
             // 
             // tsmDelete
             // 
             this.tsmDelete.Name = "tsmDelete";
-            this.tsmDelete.Size = new System.Drawing.Size(152, 22);
+            this.tsmDelete.Size = new System.Drawing.Size(136, 22);
             this.tsmDelete.Text = "删除";
             this.tsmDelete.Click += new System.EventHandler(this.tsmDelete_Click);
             // 
             // tsmSigned
             // 
             this.tsmSigned.Name = "tsmSigned";
-            this.tsmSigned.Size = new System.Drawing.Size(152, 22);
+            this.tsmSigned.Size = new System.Drawing.Size(136, 22);
             this.tsmSigned.Text = "标记已处罚";
             this.tsmSigned.Click += new System.EventHandler(this.tsmSigned_Click);
+            // 
+            // tsmUnsigned
+            // 
+            this.tsmUnsigned.Name = "tsmUnsigned";
+            this.tsmUnsigned.Size = new System.Drawing.Size(136, 22);
+            this.tsmUnsigned.Text = "标记未处罚";
+            this.tsmUnsigned.Click += new System.EventHandler(this.tsmUnsigned_Click);
             // 
             // cbbType
             // 
@@ -298,12 +307,12 @@
             this.tssState.Name = "tssState";
             this.tssState.Size = new System.Drawing.Size(0, 17);
             // 
-            // tsmUnsigned
+            // tsmExport
             // 
-            this.tsmUnsigned.Name = "tsmUnsigned";
-            this.tsmUnsigned.Size = new System.Drawing.Size(152, 22);
-            this.tsmUnsigned.Text = "标记未处罚";
-            this.tsmUnsigned.Click += new System.EventHandler(this.tsmUnsigned_Click);
+            this.tsmExport.Name = "tsmExport";
+            this.tsmExport.Size = new System.Drawing.Size(152, 22);
+            this.tsmExport.Text = "导出";
+            this.tsmExport.Click += new System.EventHandler(this.tsmExport_Click);
             // 
             // BiultForm
             // 
@@ -371,6 +380,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.ToolStripStatusLabel tssState;
         private System.Windows.Forms.ToolStripMenuItem tsmUnsigned;
+        private System.Windows.Forms.ToolStripMenuItem tsmExport;
     }
 }
 

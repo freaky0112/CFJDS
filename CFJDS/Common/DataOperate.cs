@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SQLite;
 using System.Collections;
+using System.Data.OleDb;
 
 namespace CFJDS {
     class dataOperate {
@@ -108,7 +109,8 @@ namespace CFJDS {
         private static string getID(string table) {
             CFSJDal db = new CFSJDal(Common.strConnection);
             StringBuilder sqlMax = new StringBuilder();
-            string id = null; ;
+            string id = null;
+            ;
             sqlMax.Append("select min(ID-1) from ");
             sqlMax.Append(table);
             sqlMax.Append(" where ID not in(select 1+id from ");
@@ -126,7 +128,7 @@ namespace CFJDS {
             return id;
         }
 
-        public static ArrayList dataRead(string type, string id) {
+        public static ArrayList dataRead_Old(string type, string id) {
             ArrayList dataList = new ArrayList();
             StringBuilder sql = new StringBuilder();
             sql.Append("select 鹤城所.*, 鹤城所没收.ID from  鹤城所 left join 鹤城所没收 on 鹤城所.GUID=鹤城所没收.GUID ");
@@ -178,7 +180,7 @@ namespace CFJDS {
                     data.Control = reader[9].ToString();
                     data.LandOwner = reader[10].ToString();
                     data.Area = double.Parse(reader[11].ToString());
-                    
+
                     data.Layer = double.Parse(reader[14].ToString());
                     data.BuildDate = Int32.Parse(reader[15].ToString());
                     data.Conform = reader[16].ToString();
@@ -196,7 +198,7 @@ namespace CFJDS {
                     data.ConfiscateArea = double.Parse(reader[25].ToString());
                     data.ConfiscateAreaUnit = Int32.Parse(reader[26].ToString());
                     data.ConfiscateAreaPrice = double.Parse(reader[27].ToString());
-                    if (!string.IsNullOrEmpty(reader[28].ToString())){
+                    if (!string.IsNullOrEmpty(reader[28].ToString())) {
                         data.Signed = (Boolean)reader[28];
                     }
                     data.Guid = reader[29].ToString();
@@ -211,7 +213,7 @@ namespace CFJDS {
             return dataList;
         }
 
-        public static void dataDelte(DataCFSJ data,string table) {
+        public static void dataDelte(DataCFSJ data, string table) {
             CFSJDal db = new CFSJDal(Common.strConnection);
             SQLiteParameter[] pt = new SQLiteParameter[]{
                 new SQLiteParameter("@GUID",data.Guid)
@@ -223,7 +225,7 @@ namespace CFJDS {
             db.ExecuteNonQuery(sql.ToString(), pt);
         }
 
-        public static void dataSigned(DataCFSJ data,Boolean signed) {
+        public static void dataSigned(DataCFSJ data, Boolean signed) {
             try {
                 data.Signed = signed;
                 CFSJDal db = new CFSJDal(Common.strConnection);
@@ -243,6 +245,164 @@ namespace CFJDS {
                 db.ExecuteNonQuery(sql.ToString(), pt);
             } catch (Exception ex) {
                 throw ex;
+            }
+        }
+        /// <summary>
+        /// 判断表是否存在
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <returns></returns>
+        public static Boolean getTableExist(string tableName) {
+            CFSJDal db = new CFSJDal(Common.strConnection);
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT COUNT(*) FROM sqlite_master where type='table' and name=@tablename");
+            SQLiteParameter[] pt = new SQLiteParameter[]{
+                new SQLiteParameter("@tablename",tableName)
+            };
+            int isExist = 0;
+
+            isExist = Int32.Parse(db.ExecuteScalar(sql.ToString(), pt).ToString());
+            if (isExist == 0) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+        /// <summary>
+        /// 获取当前数据库所有表名
+        /// </summary>
+        /// <returns></returns>
+        public static ArrayList getTables() {
+            ArrayList tables = new ArrayList();
+            CFSJDal db = new CFSJDal(Common.strConnection);
+            StringBuilder sql = new StringBuilder();
+            sql.Append("SELECT name FROM sqlite_master ");
+            sql.Append("WHERE type='table' ");
+            sql.Append("ORDER BY name;");
+            using (SQLiteDataReader reader = db.ExecuteReader(sql.ToString(), null)) {
+                while (reader.Read()) {
+                    if (reader[0].ToString() != "sqlite_sequence") {
+                        tables.Add(reader[0].ToString());
+                    }
+                }
+            }
+            return tables;
+        }
+        /// <summary>
+        /// 删除表
+        /// </summary>
+        /// <param name="tableName"></param>
+        public static void dropTable(string tableName) {
+            CFSJDal db = new CFSJDal(Common.strConnection);
+            StringBuilder sql = new StringBuilder();
+            sql.Append("DROP TABLE ");
+            sql.Append(tableName);
+            SQLiteParameter[] pt=new SQLiteParameter[]{
+                new SQLiteParameter("@tablename",tableName)
+            };
+            db.ExecuteNonQuery(sql.ToString(), null);
+        }
+        /// <summary>
+        /// 创建表
+        /// </summary>
+        /// <param name="talbeName"></param>
+        /// <param name="sql"></param>
+        public static void craetTable(string talbeName, string sql) {
+            CFSJDal db = new CFSJDal(Common.strConnection);
+            db.ExecuteNonQuery(sql.ToString(), null);
+        }
+
+        public static void dataExport(ArrayList dataList, string savePath) {
+            String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + savePath + ";" + "Extended Properties=Excel 8.0;";
+
+            OleDbConnection cn = new OleDbConnection(sConnectionString);
+            StringBuilder sqlCreate = new StringBuilder();
+            sqlCreate.Append("CREATE TABLE 导出数据 (");
+            foreach(string title in Common.Titles){
+                sqlCreate.Append("[");
+                sqlCreate.Append(title);
+                sqlCreate.Append("] TEXT,");
+            }
+            sqlCreate=new StringBuilder(sqlCreate.ToString().TrimEnd(','));
+            sqlCreate.Append(")");
+            OleDbCommand cmd = new OleDbCommand(sqlCreate.ToString(), cn);
+            try {
+                cn.Open();
+                try {
+
+                    cmd.ExecuteNonQuery();
+                } catch (Exception ex) {
+                    throw ex;
+                }
+                foreach (DataCFSJ data in dataList) {
+                    StringBuilder sqlInsert = new StringBuilder();
+                    sqlInsert.Append(@"INSERT INTO 导出数据 VALUES('");
+                    sqlInsert.Append(data.ID);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Name);
+                    sqlInsert.Append(@"','");
+                    if (data.ConfiscateID > 0) {
+                        sqlInsert.Append(data.ConfiscateID);
+                    } else {
+                        sqlInsert.Append("");
+                    }
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append("");
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.CardID);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Town);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Accounts);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Location);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Control);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.LandOwner);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Area);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.FarmArea);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Layer);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.BuildDate);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.LegalArea);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.IllegaArea);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.IllegaUnit);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.FarmUnit);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.Price);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.ConfiscateFloorArea);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.ConfiscateArea);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.ConfiscateAreaUnit);
+                    sqlInsert.Append(@"','");
+                    sqlInsert.Append(data.ConfiscateAreaPrice);
+                    sqlInsert.Append(@"','");
+                    if (data.Signed) {
+                        sqlInsert.Append("√");
+                    }
+                    sqlInsert.Append("')");
+                    try {
+
+                        cmd.CommandText = sqlInsert.ToString();
+                        cmd.ExecuteNonQuery();
+                    } catch (Exception ex) {
+                        throw ex;
+                    }
+                }
+            } catch (Exception ex) {
+                throw ex;
+            } finally {
+                cn.Close();
             }
         }
     }

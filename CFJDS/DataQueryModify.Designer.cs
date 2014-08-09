@@ -74,6 +74,7 @@
             this.lblBuildDate = new System.Windows.Forms.Label();
             this.tbxLayer = new System.Windows.Forms.TextBox();
             this.lblLayer = new System.Windows.Forms.Label();
+            this.cbxModifyConfiscate = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -299,6 +300,7 @@
             this.tbxConfiscateArea.Name = "tbxConfiscateArea";
             this.tbxConfiscateArea.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateArea.TabIndex = 27;
+            this.tbxConfiscateArea.TextChanged += new System.EventHandler(this.tbxConfiscateArea_TextChanged);
             // 
             // lblConfiscateArea
             // 
@@ -316,6 +318,7 @@
             this.tbxConfiscateAreaUnit.Name = "tbxConfiscateAreaUnit";
             this.tbxConfiscateAreaUnit.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateAreaUnit.TabIndex = 29;
+            this.tbxConfiscateAreaUnit.TextChanged += new System.EventHandler(this.tbxConfiscateAreaUnit_TextChanged);
             // 
             // lblConfiscateUnit
             // 
@@ -470,6 +473,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbxModifyConfiscate);
             this.groupBox2.Controls.Add(this.btnCalculate);
             this.groupBox2.Controls.Add(this.lblConfiscateFloorArea);
             this.groupBox2.Controls.Add(this.tbxConfiscateFloorArea);
@@ -527,6 +531,17 @@
             this.lblLayer.Size = new System.Drawing.Size(41, 12);
             this.lblLayer.TabIndex = 44;
             this.lblLayer.Text = "层数：";
+            // 
+            // cbxModifyConfiscate
+            // 
+            this.cbxModifyConfiscate.AutoSize = true;
+            this.cbxModifyConfiscate.Location = new System.Drawing.Point(29, 181);
+            this.cbxModifyConfiscate.Name = "cbxModifyConfiscate";
+            this.cbxModifyConfiscate.Size = new System.Drawing.Size(96, 16);
+            this.cbxModifyConfiscate.TabIndex = 33;
+            this.cbxModifyConfiscate.Text = "手动修改没收";
+            this.cbxModifyConfiscate.UseVisualStyleBackColor = true;
+            this.cbxModifyConfiscate.CheckedChanged += new System.EventHandler(this.cbxModifyConfiscate_CheckedChanged);
             // 
             // DataQueryModify
             // 
@@ -625,5 +640,6 @@
         private System.Windows.Forms.TextBox tbxFarmArea;
         private System.Windows.Forms.Label lblFarmArea;
         private System.Windows.Forms.TextBox tbxFarmUnit;
+        private System.Windows.Forms.CheckBox cbxModifyConfiscate;
     }
 }
