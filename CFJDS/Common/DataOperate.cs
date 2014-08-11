@@ -106,7 +106,7 @@ namespace CFJDS {
         /// </summary>
         /// <param name="table">表名</param>
         /// <returns>返回空缺ID，返回值为Null即向后新增</returns>
-        private static string getID(string table) {
+        public static string getID(string table) {
             CFSJDal db = new CFSJDal(Common.strConnection);
             StringBuilder sqlMax = new StringBuilder();
             string id = null;
@@ -314,7 +314,9 @@ namespace CFJDS {
 
         public static void dataExport(ArrayList dataList, string savePath) {
             String sConnectionString = "Provider=Microsoft.Jet.OLEDB.4.0;" + "Data Source=" + savePath + ";" + "Extended Properties=Excel 8.0;";
-
+            if (System.IO.File.Exists(savePath)) {
+                System.IO.File.Delete(savePath);
+            }
             OleDbConnection cn = new OleDbConnection(sConnectionString);
             StringBuilder sqlCreate = new StringBuilder();
             sqlCreate.Append("CREATE TABLE 导出数据 (");

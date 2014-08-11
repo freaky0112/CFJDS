@@ -24,7 +24,7 @@ namespace CFJDS {
             FormChoose formChoose = new FormChoose();
             formChoose.ShowDialog();
             this.Text += " - " + formChoose.cbbCode.SelectedItem;
-            code = getCode(formChoose.cbbCode.SelectedItem.ToString());
+            Common.code = getCode(formChoose.cbbCode.SelectedItem.ToString());
             //版本更新
             //bool isExsit=dataOperate.getTableExist("户主");
             //update.updateSqlite(formChoose.cbbCode.SelectedItem.ToString());
@@ -46,7 +46,7 @@ namespace CFJDS {
 
         string newData = Directory.GetCurrentDirectory() + @"\CFSJ.db";//当前数据库
         string oldData = Directory.GetCurrentDirectory() + @"\backup\CFSJ.db";//备份数据库
-        string code = "";
+        //string code = "";
         //string pText;// 文本信息   
         //int pFontSize;//字体大小  
         //string pFontName = "宋体";
@@ -109,7 +109,7 @@ namespace CFJDS {
                     //lock (lblSpeed) ;
                     for (int i = 0; i < dataList.Count; i++) {
                         DataCFSJ data = (DataCFSJ)dataList[i];
-                        data.Code = code;
+                        data.Code = Common.code;
                         generatePath = System.IO.Directory.GetCurrentDirectory() + @"\" + data.Town;
                         if (!Directory.Exists(generatePath)) {//判断文件目录是否已经存在
                             Directory.CreateDirectory(generatePath);//创建文件夹
@@ -341,28 +341,34 @@ namespace CFJDS {
             }
             int counts = dataList.Count;
             int singedCounts = 0;
+            int confiscateCounts = 0;
             foreach (DataCFSJ data in dataList) {
                 TreeNode tn = new TreeNode();
-                tn.Text = code + String.Format("{0:0000}", data.ID) + ":" + data.Name + ";" + data.Location;
+                tn.Text = Common.code + String.Format("{0:0000}", data.ID) + ":" + data.Name + ";" + data.Location;
                 if (data.Signed) {
                     tn.BackColor = Color.Red;
                     tn.ForeColor = Color.White;
                     singedCounts++;
                 }
+                if (data.ConfiscateID > 0) {
+                    confiscateCounts++;
+                    tn.Text += "※";
+                }
                 //lsi.SubItems.Add(data.ID.ToString());
                 tvwIDs.Nodes.Add(tn);
             }
-            tssState.Text = "总计查询数据" + counts + "户，其中已处罚" + singedCounts + "户";
+            tssState.Text = "总计查询数据" + counts + "户，其中已处罚" + singedCounts + "，其中没收"+confiscateCounts+"户";
         }
 
 
 
         private void tvwIDs_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
             try {
-                if (tvwIDs.SelectedNode.Index != tvwIDs.Nodes.Count - 1) {
+                int index=tvwIDs.SelectedNode.Index ;
+                if (index!= tvwIDs.Nodes.Count - 1) {
                     DataCFSJ data = new DataCFSJ();
                     data = (DataCFSJ)dataList[tvwIDs.SelectedNode.Index];
-                    DataQueryModify dataQueryModify = new DataQueryModify(data);
+                    DataQueryModify dataQueryModify = new DataQueryModify(data,tvwIDs);
                     dataQueryModify.ShowDialog();
                 }
                 //FormChoose form = new FormChoose();
@@ -445,11 +451,12 @@ namespace CFJDS {
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK) {
                     dataOperate.dataExport(dataList, saveFileDialog.FileName.ToString());
+                    MessageBox.Show("导出完成");
                 }
             } catch (Exception ex) {
                 MessageBox.Show("数据绑定Excel失败!失败原因：" + ex.Message, "提示信息", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-            MessageBox.Show("导出完成");
+            
         }
 
 

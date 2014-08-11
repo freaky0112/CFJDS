@@ -69,12 +69,14 @@
             this.lblFarmArea = new System.Windows.Forms.Label();
             this.tbxFarmUnit = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbxModifyConfiscate = new System.Windows.Forms.CheckBox();
             this.btnCalculate = new System.Windows.Forms.Button();
             this.tbxBuildDate = new System.Windows.Forms.TextBox();
             this.lblBuildDate = new System.Windows.Forms.Label();
             this.tbxLayer = new System.Windows.Forms.TextBox();
             this.lblLayer = new System.Windows.Forms.Label();
-            this.cbxModifyConfiscate = new System.Windows.Forms.CheckBox();
+            this.tbxConfiscateID = new System.Windows.Forms.TextBox();
+            this.lblConfiscateID = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -279,7 +281,7 @@
             // tbxConfiscateFloorArea
             // 
             this.tbxConfiscateFloorArea.Enabled = false;
-            this.tbxConfiscateFloorArea.Location = new System.Drawing.Point(139, 14);
+            this.tbxConfiscateFloorArea.Location = new System.Drawing.Point(139, 58);
             this.tbxConfiscateFloorArea.Name = "tbxConfiscateFloorArea";
             this.tbxConfiscateFloorArea.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateFloorArea.TabIndex = 25;
@@ -287,7 +289,7 @@
             // lblConfiscateFloorArea
             // 
             this.lblConfiscateFloorArea.AutoSize = true;
-            this.lblConfiscateFloorArea.Location = new System.Drawing.Point(27, 17);
+            this.lblConfiscateFloorArea.Location = new System.Drawing.Point(27, 61);
             this.lblConfiscateFloorArea.Name = "lblConfiscateFloorArea";
             this.lblConfiscateFloorArea.Size = new System.Drawing.Size(89, 12);
             this.lblConfiscateFloorArea.TabIndex = 24;
@@ -296,7 +298,7 @@
             // tbxConfiscateArea
             // 
             this.tbxConfiscateArea.Enabled = false;
-            this.tbxConfiscateArea.Location = new System.Drawing.Point(139, 56);
+            this.tbxConfiscateArea.Location = new System.Drawing.Point(139, 100);
             this.tbxConfiscateArea.Name = "tbxConfiscateArea";
             this.tbxConfiscateArea.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateArea.TabIndex = 27;
@@ -305,7 +307,7 @@
             // lblConfiscateArea
             // 
             this.lblConfiscateArea.AutoSize = true;
-            this.lblConfiscateArea.Location = new System.Drawing.Point(27, 59);
+            this.lblConfiscateArea.Location = new System.Drawing.Point(27, 103);
             this.lblConfiscateArea.Name = "lblConfiscateArea";
             this.lblConfiscateArea.Size = new System.Drawing.Size(89, 12);
             this.lblConfiscateArea.TabIndex = 26;
@@ -314,7 +316,7 @@
             // tbxConfiscateAreaUnit
             // 
             this.tbxConfiscateAreaUnit.Enabled = false;
-            this.tbxConfiscateAreaUnit.Location = new System.Drawing.Point(139, 102);
+            this.tbxConfiscateAreaUnit.Location = new System.Drawing.Point(139, 146);
             this.tbxConfiscateAreaUnit.Name = "tbxConfiscateAreaUnit";
             this.tbxConfiscateAreaUnit.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateAreaUnit.TabIndex = 29;
@@ -323,7 +325,7 @@
             // lblConfiscateUnit
             // 
             this.lblConfiscateUnit.AutoSize = true;
-            this.lblConfiscateUnit.Location = new System.Drawing.Point(27, 105);
+            this.lblConfiscateUnit.Location = new System.Drawing.Point(27, 149);
             this.lblConfiscateUnit.Name = "lblConfiscateUnit";
             this.lblConfiscateUnit.Size = new System.Drawing.Size(65, 12);
             this.lblConfiscateUnit.TabIndex = 28;
@@ -332,7 +334,7 @@
             // tbxConfiscateAreaPrice
             // 
             this.tbxConfiscateAreaPrice.Enabled = false;
-            this.tbxConfiscateAreaPrice.Location = new System.Drawing.Point(139, 144);
+            this.tbxConfiscateAreaPrice.Location = new System.Drawing.Point(139, 188);
             this.tbxConfiscateAreaPrice.Name = "tbxConfiscateAreaPrice";
             this.tbxConfiscateAreaPrice.Size = new System.Drawing.Size(100, 21);
             this.tbxConfiscateAreaPrice.TabIndex = 31;
@@ -340,7 +342,7 @@
             // lblConfiscatePrice
             // 
             this.lblConfiscatePrice.AutoSize = true;
-            this.lblConfiscatePrice.Location = new System.Drawing.Point(27, 147);
+            this.lblConfiscatePrice.Location = new System.Drawing.Point(27, 191);
             this.lblConfiscatePrice.Name = "lblConfiscatePrice";
             this.lblConfiscatePrice.Size = new System.Drawing.Size(65, 12);
             this.lblConfiscatePrice.TabIndex = 30;
@@ -364,7 +366,7 @@
             // 
             // btnModify
             // 
-            this.btnModify.Location = new System.Drawing.Point(459, 509);
+            this.btnModify.Location = new System.Drawing.Point(566, 541);
             this.btnModify.Name = "btnModify";
             this.btnModify.Size = new System.Drawing.Size(75, 23);
             this.btnModify.TabIndex = 36;
@@ -374,7 +376,8 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(563, 509);
+            this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.btnCancel.Location = new System.Drawing.Point(670, 541);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 37;
@@ -473,6 +476,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.tbxConfiscateID);
+            this.groupBox2.Controls.Add(this.lblConfiscateID);
             this.groupBox2.Controls.Add(this.cbxModifyConfiscate);
             this.groupBox2.Controls.Add(this.btnCalculate);
             this.groupBox2.Controls.Add(this.lblConfiscateFloorArea);
@@ -485,14 +490,25 @@
             this.groupBox2.Controls.Add(this.tbxConfiscateAreaPrice);
             this.groupBox2.Location = new System.Drawing.Point(331, 263);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(310, 203);
+            this.groupBox2.Size = new System.Drawing.Size(377, 260);
             this.groupBox2.TabIndex = 43;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "没收回购：";
             // 
+            // cbxModifyConfiscate
+            // 
+            this.cbxModifyConfiscate.AutoSize = true;
+            this.cbxModifyConfiscate.Location = new System.Drawing.Point(29, 225);
+            this.cbxModifyConfiscate.Name = "cbxModifyConfiscate";
+            this.cbxModifyConfiscate.Size = new System.Drawing.Size(96, 16);
+            this.cbxModifyConfiscate.TabIndex = 33;
+            this.cbxModifyConfiscate.Text = "手动修改没收";
+            this.cbxModifyConfiscate.UseVisualStyleBackColor = true;
+            this.cbxModifyConfiscate.CheckedChanged += new System.EventHandler(this.cbxModifyConfiscate_CheckedChanged);
+            // 
             // btnCalculate
             // 
-            this.btnCalculate.Location = new System.Drawing.Point(229, 174);
+            this.btnCalculate.Location = new System.Drawing.Point(229, 218);
             this.btnCalculate.Name = "btnCalculate";
             this.btnCalculate.Size = new System.Drawing.Size(75, 23);
             this.btnCalculate.TabIndex = 32;
@@ -532,21 +548,30 @@
             this.lblLayer.TabIndex = 44;
             this.lblLayer.Text = "层数：";
             // 
-            // cbxModifyConfiscate
+            // tbxConfiscateID
             // 
-            this.cbxModifyConfiscate.AutoSize = true;
-            this.cbxModifyConfiscate.Location = new System.Drawing.Point(29, 181);
-            this.cbxModifyConfiscate.Name = "cbxModifyConfiscate";
-            this.cbxModifyConfiscate.Size = new System.Drawing.Size(96, 16);
-            this.cbxModifyConfiscate.TabIndex = 33;
-            this.cbxModifyConfiscate.Text = "手动修改没收";
-            this.cbxModifyConfiscate.UseVisualStyleBackColor = true;
-            this.cbxModifyConfiscate.CheckedChanged += new System.EventHandler(this.cbxModifyConfiscate_CheckedChanged);
+            this.tbxConfiscateID.Enabled = false;
+            this.tbxConfiscateID.Location = new System.Drawing.Point(139, 14);
+            this.tbxConfiscateID.Name = "tbxConfiscateID";
+            this.tbxConfiscateID.Size = new System.Drawing.Size(100, 21);
+            this.tbxConfiscateID.TabIndex = 49;
+            // 
+            // lblConfiscateID
+            // 
+            this.lblConfiscateID.AutoSize = true;
+            this.lblConfiscateID.Location = new System.Drawing.Point(27, 23);
+            this.lblConfiscateID.Name = "lblConfiscateID";
+            this.lblConfiscateID.Size = new System.Drawing.Size(59, 12);
+            this.lblConfiscateID.TabIndex = 48;
+            this.lblConfiscateID.Text = "没收编号:";
+            this.lblConfiscateID.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // DataQueryModify
             // 
+            this.AcceptButton = this.btnModify;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(762, 576);
             this.Controls.Add(this.tbxBuildDate);
             this.Controls.Add(this.lblBuildDate);
@@ -641,5 +666,7 @@
         private System.Windows.Forms.Label lblFarmArea;
         private System.Windows.Forms.TextBox tbxFarmUnit;
         private System.Windows.Forms.CheckBox cbxModifyConfiscate;
+        private System.Windows.Forms.TextBox tbxConfiscateID;
+        private System.Windows.Forms.Label lblConfiscateID;
     }
 }

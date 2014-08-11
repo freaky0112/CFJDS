@@ -9,13 +9,15 @@ using System.Data.SQLite;
 
 namespace CFJDS {
     public partial class DataQueryModify : Form {
-        public DataQueryModify(DataCFSJ OriginData) {
+        public DataQueryModify(DataCFSJ OriginData,TreeView OriginTvwIDs) {
             InitializeComponent();
             data = OriginData;
+            tvwIDs = OriginTvwIDs;
             initializData(data);
             initialized= true;
         }
         DataCFSJ data = new DataCFSJ();
+        TreeView tvwIDs = new TreeView();
 
         private void btnCancel_Click(object sender, EventArgs e) {
             this.Close();
@@ -25,7 +27,7 @@ namespace CFJDS {
 
         private void initializData(DataCFSJ data) {
             try {
-                tbxID.Text = "A" + String.Format("{0:0000}", data.ID);
+                tbxID.Text = Common.code + String.Format("{0:0000}", data.ID);
                 tbxName.Text = data.Name.ToString();
                 tbxCardID.Text = data.CardID.ToString();
                 tbxTown.Text = data.Town.ToString();
@@ -48,6 +50,9 @@ namespace CFJDS {
                 tbxConfiscateAreaPrice.Text = data.ConfiscateAreaPrice.ToString();
                 tbxFarmArea.Text = data.FarmArea.ToString();
                 tbxFarmUnit.Text = data.FarmUnit.ToString();
+                if (data.ConfiscateID > 0) {
+                    tbxConfiscateID.Text = Common.code  + String.Format("{0:0000}", data.ConfiscateID);
+                }
             } catch (Exception ex) {
                 throw ex;
             }
@@ -133,11 +138,13 @@ namespace CFJDS {
                 //    }
                 //};
                 if (isNotConfiscate) {//须莫收且没有数据
+                    string _ID = dataOperate.getID("鹤城所没收");
                     _sql = new StringBuilder();
                     _sql.Append("insert into 鹤城所没收 ");
-                    _sql.Append("(GUID) values ");
-                    _sql.Append("(@guid)");
-                    SQLiteParameter[] pt = new SQLiteParameter[]{
+                    _sql.Append("(ID,GUID) values ");
+                    _sql.Append("(@id,@guid)");
+                    SQLiteParameter[] pt = new SQLiteParameter[]{                    
+                        new SQLiteParameter("@id",_ID),
                         new SQLiteParameter("@guid",data.Guid)
                     };
                     db.ExecuteNonQuery(_sql.ToString(), pt);
@@ -152,6 +159,18 @@ namespace CFJDS {
                     db.ExecuteNonQuery(_sql.ToString(), pt);
                 }
 
+                sql = new StringBuilder();
+                sql.Append("select ID from 鹤城所没收 where guid=@guid");
+                parameters = new SQLiteParameter[]{
+                        new SQLiteParameter("@guid",data.Guid)
+                    };
+                object ob = db.ExecuteScalar(sql.ToString(), parameters);
+                if (ob != null) {
+                    data.ConfiscateID = Int32.Parse(ob.ToString());
+                } else {
+                    data.ConfiscateID = 0;
+                }
+
             } catch (Exception ex) {
                 if (!ex.Message.Contains("UNIQUE")) {
                     throw ex;
@@ -164,7 +183,13 @@ namespace CFJDS {
         private void btnModify_Click(object sender, EventArgs e) {
             assignment();
             try {
-                modifyData(data.ConfiscateAreaPrice > 0);
+                bool isNotConfiscate = data.ConfiscateAreaPrice > 0;
+                modifyData(isNotConfiscate);
+                tvwIDs.SelectedNode.Text = Common.code + String.Format("{0:0000}", data.ID) + ":" + data.Name + ";" + data.Location;
+                if (isNotConfiscate) {
+                    tvwIDs.SelectedNode.Text += "※";
+                }
+                
             } catch (Exception ex) {
                 MessageBox.Show(ex.Message);
             }
